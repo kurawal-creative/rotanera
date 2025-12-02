@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 import Link from "next/link";
-import AuthCarousel from "@/components/AuthCarousel";
+import AuthCarousel from "@/components/auth-carousel";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -27,7 +27,8 @@ export default function LoginPage() {
                     Hai, senang bertemu lagi!
                   </div>
                   <div className="text-sm text-neutral-600">
-                    Masuk sekarang dan lanjutkan ciptakan blueprint rotan kreatifmu!
+                    Masuk sekarang dan lanjutkan ciptakan blueprint rotan
+                    kreatifmu!
                   </div>
                 </div>
 
@@ -59,12 +60,14 @@ export default function LoginPage() {
                 </div>
 
                 {/* Lupa Password */}
-                <div className="text-maroon -mt-2 mb-2 ml-auto w-fit font-medium underline-offset-2 hover:underline">
+                <div className="text-purp -mt-2 mb-2 ml-auto w-fit font-medium underline-offset-2 hover:underline">
                   <Link href={"/lupa-password"}>Lupa password?</Link>
                 </div>
 
                 {/* Tombol Login */}
-                <Button className="mt-2 h-10 w-full rounded-2xl bg-maroon hover:bg-maroon-darker">Login</Button>
+                <Button className="bg-purp hover:bg-purp-darker mt-2 h-10 w-full rounded-2xl">
+                  Login
+                </Button>
 
                 {/* Divider */}
                 <div className="flex items-center gap-6">
@@ -103,7 +106,7 @@ export default function LoginPage() {
                   <p className="hidden lg:inline">{"Belum ada akun? "}</p>
                   <Link
                     href={"/register"}
-                    className="underliner-offset-2 text-maroon hover:underline"
+                    className="underliner-offset-2 text-purp hover:underline"
                   >
                     Daftar
                   </Link>
