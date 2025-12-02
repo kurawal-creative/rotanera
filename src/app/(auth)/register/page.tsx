@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import AuthCarousel from "@/components/AuthCarousel";
+import AuthCarousel from "@/components/auth-carousel";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Eye, EyeOff } from "lucide-react";
@@ -133,7 +133,7 @@ export default function RegisterPage() {
                 </div>
 
                 {/* Submit */}
-                <Button className="bg-maroon hover:bg-maroon-darker mt-2 h-10 w-full rounded-2xl">
+                <Button className="bg-purp hover:bg-purp-darker mt-2 h-10 w-full rounded-2xl">
                   Buat Akun
                 </Button>
 
