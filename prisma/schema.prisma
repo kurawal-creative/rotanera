@@ -18,10 +18,10 @@ model User {
   name         String
   email        String   @unique
   password     String
-  avatar String?  
+  avatar String?
+
+  authId String         @unique
 
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-} 
-
-
+}
