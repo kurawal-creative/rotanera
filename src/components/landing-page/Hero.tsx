@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import blobGradient from "@/assets/image/blob-gradient.jpg";
+import { ArrowRight } from "lucide-react";
 
 const HeroSection = () => {
   return (
@@ -25,9 +26,16 @@ const HeroSection = () => {
           </p>
 
           <div className="flex items-center gap-4">
-            <Button className="rounded-full text-base">
-              <Link href="#">Coba Sekarang</Link>
+            <Button className="group rounded-full border font-semibold text-white backdrop-blur-md transition-all duration-300 ease-out active:scale-[0.97]">
+              <Link href="#" className="flex items-center gap-2">
+                Coba Sekarang{" "}
+                <ArrowRight
+                  size={16}
+                  className="transition-transform duration-300 ease-out group-hover:translate-x-1"
+                />
+              </Link>
             </Button>
+
             <Link
               href="/tentang-kami"
               className="group relative text-neutral-800 transition-colors duration-300 hover:text-neutral-900"
