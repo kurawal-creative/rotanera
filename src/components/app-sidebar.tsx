@@ -30,6 +30,7 @@ import { Avatar } from "./ui/avatar";
 import { useState } from "react";
 import UserAvatar from "./user-avatar";
 import Link from "next/link";
+import { useAuth } from "@/hooks/use-auth";
 
 const items = [
   { title: "Project", url: "/projects", icon: LayoutGrid },
@@ -38,8 +39,36 @@ const items = [
 ];
 
 export function AppSidebar() {
-  const [username] = useState("Fauzan Gacor");
-  const [email] = useState("m@example.com");
+  const { user, loading, signOut } = useAuth();
+
+  const username =
+    user?.user_metadata?.full_name ||
+    user?.user_metadata.name ||
+    user?.email?.split("@")[0] ||
+    "User";
+  const email = user?.email || "No email";
+  const avatarUrl =
+    user?.user_metadata?.avatar_url || user?.user_metadata?.picture;
+
+  if (loading) {
+    return (
+      <Sidebar className="bg-white">
+        <SidebarHeader className="bg-white">
+          <Link
+            href={"/"}
+            className="text-purp text-center text-3xl font-normal tracking-tight"
+          >
+            rotanera
+          </Link>
+        </SidebarHeader>
+        <SidebarContent className="bg-white px-2">
+          <div className="flex items-center justify-center py-8">
+            <p className="text-sm text-gray-500">Loading...</p>
+          </div>
+        </SidebarContent>
+      </Sidebar>
+    );
+  }
 
   return (
     <Sidebar className="bg-white">
@@ -87,7 +116,11 @@ export function AppSidebar() {
             <button className="flex w-full items-center justify-between rounded-lg px-2 py-2 text-sm transition hover:bg-gray-100">
               <div className="flex items-center gap-3">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <UserAvatar className="rounded-lg" />
+                  <UserAvatar
+                    className="rounded-lg"
+                    src={avatarUrl}
+                    alt={username}
+                  />
                 </Avatar>
 
                 <div className="flex flex-col">
@@ -116,7 +149,7 @@ export function AppSidebar() {
 
             <DropdownMenuSeparator />
 
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={signOut} className="cursor-pointer">
               <LogOut className="mr-2 h-4 w-4 text-red-500" />
               <span className="text-red-500">Logout</span>
             </DropdownMenuItem>
