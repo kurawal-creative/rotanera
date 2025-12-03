@@ -1,7 +1,7 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
-
 import {
   Sidebar,
+  SidebarHeader,
+  SidebarFooter,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
@@ -11,47 +11,65 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
+import {
+  ChevronsUpDown,
+  History,
+  LayoutGrid,
+  LogOut,
+  Settings,
+} from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import { Avatar } from "./ui/avatar";
+import { useState } from "react";
+import UserAvatar from "./user-avatar";
+import Link from "next/link";
+
 const items = [
-  {
-    title: "Home",
-    url: "#",
-    icon: Home,
-  },
-  {
-    title: "Inbox",
-    url: "#",
-    icon: Inbox,
-  },
-  {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Search",
-    url: "#",
-    icon: Search,
-  },
-  {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
-  },
+  { title: "Project", url: "/projects", icon: LayoutGrid },
+  { title: "Riwayat", url: "/riwayat", icon: History },
+  { title: "Settings", url: "#", icon: Settings },
 ];
 
 export function AppSidebar() {
+  const [username] = useState("Fauzan Gacor");
+  const [email] = useState("m@example.com");
+
   return (
-    <Sidebar>
-      <SidebarContent>
+    <Sidebar className="bg-white">
+      {/* HEADER */}
+      <SidebarHeader className="bg-white">
+        <Link
+          href={"/"}
+          className="text-purp text-center text-3xl font-normal tracking-tight"
+        >
+          rotanera
+        </Link>
+      </SidebarHeader>
+
+      {/* MENU */}
+      <SidebarContent className="bg-white px-2">
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
+          <SidebarGroupLabel className="mb-2 text-[11px] font-semibold tracking-wider text-gray-500 uppercase">
+            Menu Utama
+          </SidebarGroupLabel>
+
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className="space-y-1">
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton
+                    asChild
+                    className="data-[state=active]:bg-purp relative flex items-center gap-2 rounded-md border border-transparent px-2 py-2 transition-all hover:border-gray-200 hover:bg-gray-100/70 active:bg-gray-200 data-[state=active]:text-white"
+                  >
                     <a href={item.url}>
-                      <item.icon />
+                      <item.icon size={18} />
                       <span>{item.title}</span>
                     </a>
                   </SidebarMenuButton>
@@ -61,6 +79,50 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+
+      {/* FOOTER */}
+      <SidebarFooter className="bg-white px-2 pt-3 pb-4">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button className="flex w-full items-center justify-between rounded-lg px-2 py-2 text-sm transition hover:bg-gray-100">
+              <div className="flex items-center gap-3">
+                <Avatar className="h-8 w-8 rounded-lg">
+                  <UserAvatar className="rounded-lg" />
+                </Avatar>
+
+                <div className="flex flex-col">
+                  <span className="font-medium">{username}</span>
+                  <span className="text-xs text-gray-500">{email}</span>
+                </div>
+              </div>
+              <ChevronsUpDown size={16} className="text-gray-500" />
+            </button>
+          </DropdownMenuTrigger>
+
+          <DropdownMenuContent side="right" align="end" className="w-56">
+            <DropdownMenuLabel className="font-normal">
+              <div className="flex flex-col space-y-1">
+                <p className="text-sm font-medium">{username}</p>
+                <p className="text-xs text-gray-500">{email}</p>
+              </div>
+            </DropdownMenuLabel>
+
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem>
+              <Settings className="mr-2 h-4 w-4" />
+              <span>Akun</span>
+            </DropdownMenuItem>
+
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem>
+              <LogOut className="mr-2 h-4 w-4 text-red-500" />
+              <span className="text-red-500">Logout</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </SidebarFooter>
     </Sidebar>
   );
 }
