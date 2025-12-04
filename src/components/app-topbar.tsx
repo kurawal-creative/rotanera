@@ -34,7 +34,7 @@ export function Topbar({
   return (
     <header
       className={clsx(
-        "sticky top-0 w-full border-b bg-white/80 px-2 py-3 backdrop-blur",
+        "sticky top-0 z-5 w-full border-b bg-white/80 px-2 py-3 backdrop-blur",
         "flex items-center justify-between",
         className,
       )}
