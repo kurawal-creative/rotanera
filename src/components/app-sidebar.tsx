@@ -115,7 +115,7 @@ export function AppSidebar() {
           <DropdownMenuTrigger asChild>
             <button className="flex w-full items-center justify-between rounded-lg px-2 py-2 text-sm transition hover:bg-gray-100">
               <div className="flex items-center gap-3">
-                <Avatar className="h-8 w-8 rounded-lg">
+                <Avatar className="h-8 w-8 rounded-full">
                   <UserAvatar
                     className="rounded-lg"
                     src={avatarUrl}
@@ -123,7 +123,7 @@ export function AppSidebar() {
                   />
                 </Avatar>
 
-                <div className="flex flex-col">
+                <div className="flex flex-col text-left">
                   <span className="font-medium">{username}</span>
                   <span className="text-xs text-gray-500">{email}</span>
                 </div>
