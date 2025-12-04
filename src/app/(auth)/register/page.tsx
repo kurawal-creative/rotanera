@@ -34,7 +34,7 @@ export default function RegisterPage() {
                 </div>
 
                 {/* Use the new OAuthButtons component */}
-                <OAuthButtons redirectTo="/dashboard" />
+                <OAuthButtons redirectTo="/project" />
 
                 <div className="mt-5 text-center font-medium text-neutral-600">
                   <p className="hidden lg:inline">{"Sudah punya akun? "}</p>

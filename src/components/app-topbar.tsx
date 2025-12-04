@@ -21,7 +21,6 @@ interface Crumb {
 interface TopbarProps {
   className?: string;
   breadcrumb?: Crumb[];
-  // optional title to show next to breadcrumb
   title?: string;
 }
 
@@ -35,7 +34,7 @@ export function Topbar({
   return (
     <header
       className={clsx(
-        "sticky top-0 z-50 w-full border-b bg-white/80 px-2 py-3 backdrop-blur",
+        "sticky top-0 w-full border-b bg-white/80 px-2 py-3 backdrop-blur",
         "flex items-center justify-between",
         className,
       )}

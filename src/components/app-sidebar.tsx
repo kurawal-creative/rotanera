@@ -36,8 +36,8 @@ import { Button } from "./ui/button";
 
 const items = [
   { title: "Project", url: "/project", icon: LayoutGrid },
-  { title: "Koleksi", url: "/project/koleksi", icon: GalleryVerticalEnd },
-  { title: "Template", url: "/template", icon: LayoutTemplate },
+  { title: "Koleksi", url: "/koleksi", icon: GalleryVerticalEnd },
+  { title: "Template Project", url: "/template-project", icon: LayoutTemplate },
 ];
 
 export function AppSidebar() {
@@ -138,7 +138,7 @@ export function AppSidebar() {
             </button>
           </DropdownMenuTrigger>
 
-          <DropdownMenuContent side="right" align="end" className="w-56">
+          <DropdownMenuContent side="right" align="end" className="ml-3 w-56">
             <DropdownMenuLabel className="font-normal">
               <div className="flex flex-col space-y-1">
                 <p className="text-sm font-medium">{username}</p>

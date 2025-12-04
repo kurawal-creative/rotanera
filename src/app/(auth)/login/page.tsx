@@ -25,7 +25,7 @@ export default function LoginPage() {
                 </div>
 
                 {/* Use the new SignInForm component */}
-                <SignInForm redirectTo="/dashboard" />
+                <SignInForm redirectTo="/project" />
 
                 <div className="flex items-center gap-6">
                   <div className="h-0.5 w-full rounded-lg bg-gray-200" />
@@ -34,7 +34,7 @@ export default function LoginPage() {
                 </div>
 
                 {/* Use the new OAuthButtons component */}
-                <OAuthButtons redirectTo="/dashboard" />
+                <OAuthButtons redirectTo="/project" />
 
                 <div className="mt-5 text-center font-medium text-neutral-600">
                   <p className="hidden lg:inline">{"Belum ada akun? "}</p>
