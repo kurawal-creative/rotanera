@@ -3,6 +3,7 @@
 import { Topbar } from "@/components/app-topbar";
 import GridLayoutDashboard from "@/components/grid-layout-dashboard";
 import ListLayoutDashboard from "@/components/list-layout-dashboard";
+import SearchBar from "@/components/search-project";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight, Grid2x2, History, List } from "lucide-react";
@@ -78,35 +79,38 @@ export default function DashboardPage() {
                 </Button>
               </div>
             </div>
-
-            <div className="mt-10 flex justify-between">
+            <div className="mt-10">
               <h1 className="flex items-center gap-2 text-xl text-neutral-800">
-                Terakhir di lihat <History size={16} />
+                Terakhir di generate <History size={16} />
               </h1>
-              <div className="flex items-center gap-1 rounded-lg border p-1 text-sm">
-                <button
-                  onClick={() => setView("grid")}
-                  className={`rounded-md p-1.5 transition ${
-                    view === "grid"
-                      ? "bg-purp text-white shadow"
-                      : "text-neutral-600 hover:bg-neutral-100"
-                  }`}
-                >
-                  <Grid2x2 size={16} />
-                </button>
+              <div className="mt-2 flex justify-between">
+                <SearchBar />
+                <div className="flex items-center gap-1 rounded-lg border p-1 text-sm">
+                  <button
+                    onClick={() => setView("grid")}
+                    className={`rounded-md p-1.5 transition ${
+                      view === "grid"
+                        ? "bg-purp text-white shadow"
+                        : "text-neutral-600 hover:bg-neutral-100"
+                    }`}
+                  >
+                    <Grid2x2 size={16} />
+                  </button>
 
-                <button
-                  onClick={() => setView("list")}
-                  className={`rounded-md p-1.5 transition ${
-                    view === "list"
-                      ? "bg-purp text-white shadow"
-                      : "text-neutral-600 hover:bg-neutral-100"
-                  }`}
-                >
-                  <List size={16} />
-                </button>
+                  <button
+                    onClick={() => setView("list")}
+                    className={`rounded-md p-1.5 transition ${
+                      view === "list"
+                        ? "bg-purp text-white shadow"
+                        : "text-neutral-600 hover:bg-neutral-100"
+                    }`}
+                  >
+                    <List size={16} />
+                  </button>
+                </div>
               </div>
             </div>
+
             {view === "grid" ? (
               <GridLayoutDashboard />
             ) : (

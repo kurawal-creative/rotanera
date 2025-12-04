@@ -30,11 +30,11 @@ export default function SearchBar() {
   }, []);
 
   return (
-    <div ref={wrapperRef} className="relative z-50 w-80">
+    <div ref={wrapperRef} className="relative w-90">
       <Search className="absolute top-1/2 left-3 z-10 h-4 w-4 -translate-y-1/2 text-neutral-400" />
       <Input
         type="text"
-        placeholder="Cari project kamu"
+        placeholder="Temukan project kamu"
         value={query}
         onChange={(e) => {
           setQuery(e.target.value);

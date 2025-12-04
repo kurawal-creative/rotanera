@@ -1,3 +1,5 @@
+"use client";
+
 import { Topbar } from "@/components/app-topbar";
 
 export default function KoleksiDashboardPage() {

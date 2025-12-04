@@ -1,6 +1,14 @@
 export const AUTH_CONFIG = {
   // Protected routes (require authentication)
-  protected: ["/project", "/profile", "/settings", "/app"],
+  protected: [
+    "/project",
+    "/profile",
+    "/settings",
+    "/app",
+    "project-baru",
+    "template-project",
+    "koleksi",
+  ],
 
   // Auth routes (login/register)
   auth: ["/login", "/register", "/forgot-password"],

@@ -32,11 +32,10 @@ import { Avatar } from "./ui/avatar";
 import UserAvatar from "./user-avatar";
 import Link from "next/link";
 import { useAuth } from "@/hooks/use-auth";
-import { Button } from "./ui/button";
 
 const items = [
   { title: "Project", url: "/project", icon: LayoutGrid },
-  { title: "Koleksi", url: "/koleksi", icon: GalleryVerticalEnd },
+  { title: "Galeri", url: "/galeri", icon: GalleryVerticalEnd },
   { title: "Template Project", url: "/template-project", icon: LayoutTemplate },
 ];
 
@@ -99,10 +98,10 @@ export function AppSidebar() {
                     asChild
                     className="data-[state=active]:bg-purp relative flex items-center gap-2 rounded-md border border-transparent px-2 py-2 transition-all hover:border-gray-200 hover:bg-gray-100/70 active:bg-gray-200 data-[state=active]:text-white"
                   >
-                    <a href={item.url}>
+                    <Link href={item.url}>
                       <item.icon size={18} />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
@@ -113,10 +112,13 @@ export function AppSidebar() {
 
       {/* Footer */}
       <SidebarFooter className="bg-white px-2 pt-3 pb-4">
-        <Button className="border-purp hover:border-purp-darker text-purp mb-3 flex w-full items-center justify-center gap-2 rounded-lg border border-dashed bg-white px-2 py-2 text-sm transition hover:bg-neutral-50">
+        <Link
+          href={"/project-baru"}
+          className="border-purp hover:border-purp-darker text-purp mb-3 flex w-full items-center justify-center gap-2 rounded-lg border border-dashed bg-white px-2 py-2 text-sm transition hover:bg-neutral-50"
+        >
           <Plus size={16} />
           <span>Tambah Project</span>
-        </Button>
+        </Link>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <button className="flex w-full items-center justify-between rounded-lg px-2 py-2 text-sm transition hover:bg-gray-100">
