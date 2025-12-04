@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { useTemplates } from "@/store/templateStore";
-import { Heart, Eye, Plus } from "lucide-react";
+import { Heart, Eye, Plus, Flame, Armchair } from "lucide-react";
 import Image from "next/image";
 
 export default function TemplateGrid() {
@@ -11,7 +11,9 @@ export default function TemplateGrid() {
   if (filteredTemplates.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-center">
-        <div className="mb-4 text-6xl">🪑</div>
+        <div className="mb-4">
+          <Armchair size={64} className="text-neutral-300" />
+        </div>
         <h3 className="text-lg font-medium text-neutral-900">
           Tidak ada template ditemukan
         </h3>
@@ -27,20 +29,20 @@ export default function TemplateGrid() {
       {filteredTemplates.map((template) => (
         <div
           key={template.id}
-          className="group relative overflow-hidden rounded-xl border bg-white shadow-sm transition-all hover:shadow-lg"
+          className="group relative overflow-hidden rounded-xl border bg-white shadow-sm transition-all hover:border-purple-200 hover:shadow-lg"
         >
           {/* Thumbnail */}
           <div className="relative aspect-[4/3] w-full overflow-hidden bg-neutral-100">
-            <div className="flex h-full items-center justify-center bg-gradient-to-br from-amber-50 to-orange-100">
-              <div className="text-6xl opacity-20">🪑</div>
+            <div className="flex h-full items-center justify-center bg-gradient-to-br from-purple-50 to-violet-100">
+              <Armchair size={64} className="text-purple-200" />
             </div>
 
             {/* Overlay on hover */}
-            <div className="absolute inset-0 flex items-center justify-center gap-2 bg-black/60 opacity-0 transition-opacity group-hover:opacity-100">
+            <div className="absolute inset-0 flex items-center justify-center gap-2 bg-purple-900/60 opacity-0 transition-opacity group-hover:opacity-100">
               <Button
                 size="sm"
                 variant="secondary"
-                className="gap-2"
+                className="gap-2 bg-white hover:bg-purple-50"
                 onClick={() => {
                   useTemplate(template.id);
                   // Add navigation logic here
@@ -49,7 +51,11 @@ export default function TemplateGrid() {
                 <Plus size={16} />
                 Gunakan
               </Button>
-              <Button size="sm" variant="secondary" className="gap-2">
+              <Button
+                size="sm"
+                variant="secondary"
+                className="gap-2 bg-white hover:bg-purple-50"
+              >
                 <Eye size={16} />
                 Preview
               </Button>
@@ -64,7 +70,7 @@ export default function TemplateGrid() {
                 size={16}
                 className={
                   template.isFavorite
-                    ? "fill-red-500 text-red-500"
+                    ? "fill-purple-500 text-purple-500"
                     : "text-neutral-400"
                 }
               />
@@ -82,8 +88,11 @@ export default function TemplateGrid() {
 
             {/* Stats */}
             <div className="mt-3 flex items-center justify-between text-xs text-neutral-400">
-              <span>🔥 {template.usageCount} penggunaan</span>
-              <span className="rounded-full bg-amber-50 px-2 py-0.5 text-amber-600">
+              <span className="flex items-center gap-1">
+                <Flame size={14} className="text-orange-500" />
+                {template.usageCount} penggunaan
+              </span>
+              <span className="rounded-full bg-purple-50 px-2 py-0.5 text-purple-600">
                 {template.style}
               </span>
             </div>
