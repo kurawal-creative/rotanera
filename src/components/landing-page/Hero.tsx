@@ -57,7 +57,7 @@ const HeroSection = () => {
             className="pointer-events-none absolute top-1/2 left-1/2 -z-10 -translate-x-1/2 -translate-y-1/2 scale-[1.4]"
           />
 
-          <div className="relative -right-20 z-100">
+          <div className="relative -right-20 z-50">
             <Safari url="rotanera.netlify.app" />
           </div>
           <div className="bg-white shadow-sm"></div>

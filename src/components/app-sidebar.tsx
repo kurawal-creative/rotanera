@@ -13,9 +13,11 @@ import {
 
 import {
   ChevronsUpDown,
-  History,
+  GalleryVerticalEnd,
   LayoutGrid,
+  LayoutTemplate,
   LogOut,
+  Plus,
   Settings,
 } from "lucide-react";
 import {
@@ -27,15 +29,15 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { Avatar } from "./ui/avatar";
-import { useState } from "react";
 import UserAvatar from "./user-avatar";
 import Link from "next/link";
 import { useAuth } from "@/hooks/use-auth";
+import { Button } from "./ui/button";
 
 const items = [
-  { title: "Project", url: "/projects", icon: LayoutGrid },
-  { title: "Riwayat", url: "/riwayat", icon: History },
-  { title: "Settings", url: "#", icon: Settings },
+  { title: "Project", url: "/project", icon: LayoutGrid },
+  { title: "Koleksi", url: "/project/koleksi", icon: GalleryVerticalEnd },
+  { title: "Template", url: "/template", icon: LayoutTemplate },
 ];
 
 export function AppSidebar() {
@@ -72,7 +74,7 @@ export function AppSidebar() {
 
   return (
     <Sidebar className="bg-white">
-      {/* HEADER */}
+      {/* Header */}
       <SidebarHeader className="bg-white">
         <Link
           href={"/"}
@@ -82,7 +84,7 @@ export function AppSidebar() {
         </Link>
       </SidebarHeader>
 
-      {/* MENU */}
+      {/* Main menu */}
       <SidebarContent className="bg-white px-2">
         <SidebarGroup>
           <SidebarGroupLabel className="mb-2 text-[11px] font-semibold tracking-wider text-gray-500 uppercase">
@@ -109,8 +111,12 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
 
-      {/* FOOTER */}
+      {/* Footer */}
       <SidebarFooter className="bg-white px-2 pt-3 pb-4">
+        <Button className="border-purp hover:border-purp-darker text-purp mb-3 flex w-full items-center justify-center gap-2 rounded-lg border border-dashed bg-white px-2 py-2 text-sm transition hover:bg-neutral-50">
+          <Plus size={16} />
+          <span>Tambah Project</span>
+        </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <button className="flex w-full items-center justify-between rounded-lg px-2 py-2 text-sm transition hover:bg-gray-100">
@@ -144,7 +150,7 @@ export function AppSidebar() {
 
             <DropdownMenuItem>
               <Settings className="mr-2 h-4 w-4" />
-              <span>Akun</span>
+              <span>Pengaturan</span>
             </DropdownMenuItem>
 
             <DropdownMenuSeparator />

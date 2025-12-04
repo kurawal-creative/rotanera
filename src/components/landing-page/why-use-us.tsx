@@ -25,7 +25,7 @@ const WhyUseUsSection = () => {
                 src={image}
                 alt="gambar orang ngerotan"
                 width={400}
-                className="z-100 rounded-sm object-cover shadow-sm"
+                className="z-50 rounded-sm object-cover shadow-sm"
               />
             </div>
           </div>

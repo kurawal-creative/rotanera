@@ -11,6 +11,7 @@ import {
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import SearchBar from "./search-project";
 
 interface Crumb {
   label: string;
@@ -34,7 +35,7 @@ export function Topbar({
   return (
     <header
       className={clsx(
-        "sticky top-0 w-full border-b bg-white/80 px-2 py-3 backdrop-blur",
+        "sticky top-0 z-50 w-full border-b bg-white/80 px-2 py-3 backdrop-blur",
         "flex items-center justify-between",
         className,
       )}
@@ -92,8 +93,9 @@ export function Topbar({
 
       {/* Right area for controls (search, avatar, actions) */}
       <div className="flex items-center gap-2">
-        {/* placeholder — bisa diisi oleh page masing-masing */}
+        <SearchBar />
       </div>
+      <div className="pointer-events-none absolute inset-x-0 top-15 -z-10 h-24 bg-linear-to-b from-[#6D28D9]/5 via-[#6D28D9]/0 to-transparent" />
     </header>
   );
 }
