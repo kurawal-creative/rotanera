@@ -3,10 +3,9 @@
 import { Button } from "@/components/ui/button";
 import { useTemplates } from "@/store/templateStore";
 import { Heart, Eye, Plus, Flame, Armchair } from "lucide-react";
-import Image from "next/image";
 
 export default function TemplateGrid() {
-  const { filteredTemplates, toggleFavorite, useTemplate } = useTemplates();
+  const { filteredTemplates, toggleFavorite, applyTemplate } = useTemplates();
 
   if (filteredTemplates.length === 0) {
     return (
@@ -44,7 +43,7 @@ export default function TemplateGrid() {
                 variant="secondary"
                 className="gap-2 bg-white hover:bg-purple-50"
                 onClick={() => {
-                  useTemplate(template.id);
+                  applyTemplate(template.id);
                   // Add navigation logic here
                 }}
               >

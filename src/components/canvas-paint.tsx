@@ -109,13 +109,16 @@ export default function Home() {
 
         {/* Preview last export */}
         {lastExport && (
-          <div className="mt-8 text-center">
+          <div className="relative mt-8 text-center">
             <h3 className="text-foreground mb-2 text-lg font-semibold">
               Preview Export Terakhir:
             </h3>
             <Image
               src={lastExport || "/placeholder.svg"}
               alt="Last export preview"
+              width={320}
+              height={320}
+              sizes="(max-width: 768px) 100vw, 320px"
               className="border-border mx-auto max-w-xs rounded-lg border shadow-md"
             />
           </div>
@@ -127,14 +130,18 @@ export default function Home() {
             <p className="text-muted-foreground">Memproses gambar...</p>
           </div>
         )}
+        {/* Processed image */}
         {processedImage && (
-          <div className="mt-8 text-center">
+          <div className="relative mt-8 text-center">
             <h3 className="text-foreground mb-2 text-lg font-semibold">
               Hasil Pemrosesan:
             </h3>
             <Image
               src={processedImage}
               alt="Processed image"
+              width={320}
+              height={320}
+              sizes="(max-width: 768px) 100vw, 320px"
               className="border-border mx-auto max-w-xs rounded-lg border shadow-md"
             />
           </div>

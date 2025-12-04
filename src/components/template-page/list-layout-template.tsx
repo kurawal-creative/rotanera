@@ -5,7 +5,7 @@ import { useTemplates } from "@/store/templateStore";
 import { Heart, Plus, Eye, Flame, Armchair } from "lucide-react";
 
 export default function TemplateList() {
-  const { filteredTemplates, toggleFavorite, useTemplate } = useTemplates();
+  const { filteredTemplates, toggleFavorite, applyTemplate } = useTemplates();
 
   if (filteredTemplates.length === 0) {
     return (
@@ -59,7 +59,7 @@ export default function TemplateList() {
           <div className="flex items-center gap-2">
             <Button
               size="sm"
-              onClick={() => useTemplate(template.id)}
+              onClick={() => applyTemplate(template.id)}
               className="bg-purple-600 hover:bg-purple-700"
             >
               <Plus size={16} className="mr-1" />

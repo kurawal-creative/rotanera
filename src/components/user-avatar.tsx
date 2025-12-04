@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import { AvatarImage } from "@/components/ui/avatar"; // pastikan path ini sesuai struktur proyekmu
 import clsx from "clsx";
@@ -38,8 +37,9 @@ export default function UserAvatar({
         <Image
           src={src}
           alt={alt}
-          width={1024}
-          height={1024}
+          width={32}
+          height={32}
+          sizes="2rem"
           className={clsx(`rounded-full object-cover`, className)}
           referrerPolicy="no-referrer"
           unoptimized

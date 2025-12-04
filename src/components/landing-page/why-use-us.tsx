@@ -20,11 +20,12 @@ const WhyUseUsSection = () => {
             </div>
 
             {/* Image utama */}
-            <div className="relative left-20">
+            <div className="relative left-20 h-64 w-64">
               <Image
                 src={image}
                 alt="gambar orang ngerotan"
-                width={400}
+                fill
+                sizes="(max-width: 768px) 100vw, 256px"
                 className="z-50 rounded-sm object-cover shadow-sm"
               />
             </div>

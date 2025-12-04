@@ -80,6 +80,8 @@ export function Safari({
           <Image
             src={imageSrc}
             alt=""
+            fill
+            sizes="(max-width: 768px) 100vw, 1200px"
             className="block size-full object-cover object-top"
           />
         </div>

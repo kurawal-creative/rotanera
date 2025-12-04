@@ -64,9 +64,10 @@ export default function AuthCarousel() {
               <Image
                 src={img.src}
                 alt={img.src}
-                width={200}
-                height={200}
-                className="h-full w-full scale-105 object-cover transition-transform duration-4000 ease-in-out"
+                width={400}
+                height={400}
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="scale-105 object-cover transition-transform duration-4000 ease-in-out"
                 style={{ filter: "brightness(0.85)" }}
               />
               <div className="pointer-events-none absolute right-0 bottom-0 left-0 h-1/2 bg-linear-to-t from-black/70 to-transparent" />

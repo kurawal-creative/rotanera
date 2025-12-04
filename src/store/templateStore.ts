@@ -35,7 +35,7 @@ type TemplatesStore = {
   setSearchQuery: (query: string) => void;
   setViewMode: (mode: "grid" | "list") => void;
   toggleFavorite: (id: string) => void;
-  useTemplate: (id: string) => void;
+  applyTemplate: (id: string) => void;
 };
 
 const dummyTemplates: Template[] = [
@@ -173,7 +173,7 @@ export const useTemplates = create<TemplatesStore>((set, get) => ({
     }));
   },
 
-  useTemplate: (id) => {
+  applyTemplate: (id) => {
     set((state) => ({
       templates: state.templates.map((t) =>
         t.id === id ? { ...t, usageCount: t.usageCount + 1 } : t,
