@@ -5,6 +5,7 @@ import { useState, useCallback, useRef } from "react";
 import { PaintApp, type PaintAppRef } from "@/components/paint-app";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
+import Image from "next/image";
 
 export default function CanvasPage() {
   const { id } = useParams();
@@ -101,11 +102,15 @@ export default function CanvasPage() {
             <h2 className="mb-4 text-xl font-semibold">Hasil Generasi</h2>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {generatedImages.map((img, index) => (
-                <div key={index} className="overflow-hidden rounded-lg border">
-                  <img
+                <div
+                  key={index}
+                  className="relative h-48 overflow-hidden rounded-lg border"
+                >
+                  <Image
                     src={img}
                     alt={`Generated ${index + 1}`}
-                    className="h-48 w-full object-cover"
+                    fill
+                    className="object-cover"
                   />
                 </div>
               ))}
