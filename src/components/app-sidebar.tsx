@@ -18,9 +18,7 @@ import {
   LayoutGrid,
   LayoutTemplate,
   LogOut,
-  PersonStandingIcon,
   Plus,
-  Settings,
 } from "lucide-react";
 import {
   DropdownMenu,

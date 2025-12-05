@@ -3,7 +3,8 @@
 import { Topbar } from "@/components/app-topbar";
 import { StatisticsOverview } from "@/components/profile-page/statistics-overview";
 import { useAuth } from "@/hooks/use-auth";
-import { User, Mail, Calendar, ChartColumnBig } from "lucide-react";
+import { User, Mail, ChartColumnBig } from "lucide-react";
+import Image from "next/image";
 
 export default function ProfilePage() {
   const { user, loading } = useAuth();
@@ -20,12 +21,13 @@ export default function ProfilePage() {
         {/* Profile Header */}
         <div className="mb-8 rounded-xl border bg-white p-6">
           <div className="flex items-center gap-4">
-            <div className="h-20 w-20 overflow-hidden rounded-full bg-gradient-to-br from-purple-400 to-pink-400">
+            <div className="relative h-20 w-20 overflow-hidden rounded-full bg-gradient-to-br from-purple-400 to-pink-400">
               {user?.user_metadata?.avatar_url ? (
-                <img
+                <Image
                   src={user.user_metadata.avatar_url}
                   alt="Profile"
-                  className="h-full w-full object-cover"
+                  fill
+                  className="object-cover"
                 />
               ) : (
                 <div className="flex h-full w-full items-center justify-center">
@@ -48,7 +50,7 @@ export default function ProfilePage() {
         {/* Statistics Section */}
         <div>
           <div className="flex flex-row gap-3">
-            <ChartColumnBig className=""></ChartColumnBig>
+            <ChartColumnBig />
             <h2 className="mb-6 text-xl font-bold text-neutral-900">
               Statistik Penggunaan
             </h2>
