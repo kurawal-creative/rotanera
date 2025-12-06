@@ -47,20 +47,41 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
                 userId: user.id,
                 id: projectId,
             },
+            include: {
+                images: {
+                    select: {
+                        id: true,
+                    },
+                },
+            },
         });
 
         if (!project) {
             return NextResponse.json({ error: "Project not found" }, { status: 404 });
         }
 
-        // Delete all images associated with the project first
+        // Get all image IDs from this project
+        const imageIds = project.images.map((img) => img.id);
+
+        // Step 1: Delete all favorites associated with these images
+        if (imageIds.length > 0) {
+            await prisma.favorite.deleteMany({
+                where: {
+                    imageId: {
+                        in: imageIds,
+                    },
+                },
+            });
+        }
+
+        // Step 2: Delete all images associated with the project
         await prisma.image.deleteMany({
             where: {
                 projectId: projectId,
             },
         });
 
-        // Then delete the project
+        // Step 3: Delete the project
         await prisma.project.delete({
             where: {
                 id: projectId,

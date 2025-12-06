@@ -292,7 +292,7 @@ export default function ProfilePage() {
                         <Button variant="outline" onClick={() => setIsEditDialogOpen(false)} disabled={isSaving} className="dark:border-neutral-600 dark:bg-neutral-700 dark:text-white dark:hover:bg-neutral-600">
                             Batal
                         </Button>
-                        <Button onClick={handleSaveProfile} disabled={isSaving} className="dark:bg-purple-600 dark:hover:bg-purple-700">
+                        <Button onClick={handleSaveProfile} disabled={isSaving} className="text-white dark:bg-purple-600 dark:hover:bg-purple-700">
                             {isSaving ? "Menyimpan..." : "Simpan Perubahan"}
                         </Button>
                     </DialogFooter>
