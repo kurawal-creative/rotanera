@@ -15,7 +15,7 @@ interface OAuthButtonsProps {
  * @example
  * <OAuthButtons redirectTo="/dashboard" />
  */
-export function OAuthButtons({ redirectTo = "/app/test" }: OAuthButtonsProps) {
+export function OAuthButtons({ redirectTo = "/project" }: OAuthButtonsProps) {
     const [isLoading, setIsLoading] = useState(false);
     const supabase = createClient();
 
