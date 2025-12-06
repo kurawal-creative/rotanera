@@ -6,187 +6,122 @@ import TemplateList from "@/components/template-page/list-layout-template";
 import { useTemplates } from "@/store/templateStore";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Search,
-  Grid3x3,
-  List,
-  SlidersHorizontal,
-  Armchair,
-  Table2,
-  Sofa,
-  Archive,
-  Trees,
-  Sparkles,
-  Layers,
-} from "lucide-react";
+import { Search, Grid3x3, List, SlidersHorizontal, Armchair, Table2, Sofa, Archive, Trees, Sparkles, Layers } from "lucide-react";
 import { useState } from "react";
 import { LucideIcon } from "lucide-react";
 
 const categories: Array<{
-  id:
-    | "all"
-    | "chairs"
-    | "tables"
-    | "sofas"
-    | "cabinets"
-    | "outdoor"
-    | "decorative";
-  label: string;
-  icon: LucideIcon;
+    id: "all" | "chairs" | "tables" | "sofas" | "cabinets" | "outdoor" | "decorative";
+    label: string;
+    icon: LucideIcon;
 }> = [
-  { id: "all", label: "Semua", icon: Layers },
-  { id: "chairs", label: "Kursi", icon: Armchair },
-  { id: "tables", label: "Meja", icon: Table2 },
-  { id: "sofas", label: "Sofa", icon: Sofa },
-  { id: "cabinets", label: "Lemari", icon: Archive },
-  { id: "outdoor", label: "Outdoor", icon: Trees },
-  { id: "decorative", label: "Dekorasi", icon: Sparkles },
+    { id: "all", label: "Semua", icon: Layers },
+    { id: "chairs", label: "Kursi", icon: Armchair },
+    { id: "tables", label: "Meja", icon: Table2 },
+    { id: "sofas", label: "Sofa", icon: Sofa },
+    { id: "cabinets", label: "Lemari", icon: Archive },
+    { id: "outdoor", label: "Outdoor", icon: Trees },
+    { id: "decorative", label: "Dekorasi", icon: Sparkles },
 ];
 
 export default function TemplateProjectPage() {
-  const {
-    selectedCategory,
-    setSelectedCategory,
-    searchQuery,
-    setSearchQuery,
-    viewMode,
-    setViewMode,
-    filteredTemplates,
-  } = useTemplates();
+    const { selectedCategory, setSelectedCategory, searchQuery, setSearchQuery, viewMode, setViewMode, filteredTemplates } = useTemplates();
 
-  const [showFilters, setShowFilters] = useState(false);
+    const [showFilters, setShowFilters] = useState(false);
 
-  return (
-    <>
-      <main className="relative w-full">
-        <Topbar breadcrumb={[{ label: "Template Project" }]} />
+    return (
+        <>
+            <main className="relative w-full">
+                <Topbar breadcrumb={[{ label: "Template Project" }]} />
 
-        {/* Gradient background */}
-        <div className="pointer-events-none absolute inset-x-0 top-13 -z-10 h-32 bg-linear-to-b from-purple-50/50 via-transparent to-transparent" />
+                {/* Gradient background */}
+                <div className="pointer-events-none absolute inset-x-0 top-13 -z-10 h-32 bg-linear-to-b from-purple-50/50 via-transparent to-transparent dark:from-purple-950/20" />
 
-        <div className="relative p-6">
-          {/* Header */}
-          <div className="mb-6">
-            <h1 className="text-2xl font-semibold text-neutral-900">
-              Template Furniture Rotan
-            </h1>
-            <p className="mt-1 text-sm text-neutral-600">
-              Pilih dari {filteredTemplates.length} template siap pakai untuk
-              memulai proyek Anda
-            </p>
-          </div>
+                <div className="relative p-6">
+                    {/* Header */}
+                    <div className="mb-6">
+                        <h1 className="text-2xl font-semibold text-neutral-900 dark:text-neutral-100">Template Furniture Rotan</h1>
+                        <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">Pilih dari {filteredTemplates.length} template siap pakai untuk memulai proyek Anda</p>
+                    </div>
 
-          {/* Search and Filters */}
-          <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-            {/* Search Bar */}
-            <div className="relative flex-1 lg:max-w-md">
-              <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-neutral-400" />
-              <Input
-                type="text"
-                placeholder="Cari template..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
-              />
-            </div>
+                    {/* Search and Filters */}
+                    <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                        {/* Search Bar */}
+                        <div className="relative flex-1 lg:max-w-md">
+                            <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-neutral-400 dark:text-neutral-500" />
+                            <Input type="text" placeholder="Cari template..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="pl-10 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100 dark:placeholder:text-neutral-400" />
+                        </div>
 
-            {/* View Controls */}
-            <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                className="gap-2"
-                onClick={() => setShowFilters(!showFilters)}
-              >
-                <SlidersHorizontal size={16} />
-                Filter
-              </Button>
-              <div className="flex items-center gap-1 rounded-lg border p-1 text-sm">
-                <button
-                  onClick={() => setViewMode("grid")}
-                  className={`rounded-md p-1.5 transition ${
-                    viewMode === "grid"
-                      ? "bg-purp text-white shadow"
-                      : "text-neutral-600 hover:bg-neutral-100"
-                  }`}
-                >
-                  <Grid3x3 size={18} />
-                </button>
-                <button
-                  onClick={() => setViewMode("list")}
-                  className={`rounded-md p-1.5 transition ${
-                    viewMode === "list"
-                      ? "bg-purp text-white shadow"
-                      : "text-neutral-600 hover:bg-neutral-100"
-                  }`}
-                >
-                  <List size={18} />
-                </button>
-              </div>
-            </div>
-          </div>
+                        {/* View Controls */}
+                        <div className="flex items-center gap-2">
+                            <Button variant="outline" size="sm" className="gap-2 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700" onClick={() => setShowFilters(!showFilters)}>
+                                <SlidersHorizontal size={16} />
+                                Filter
+                            </Button>
+                            <div className="flex items-center gap-1 rounded-lg border p-1 text-sm dark:border-neutral-700 dark:bg-neutral-800">
+                                <button onClick={() => setViewMode("grid")} className={`rounded-md p-1.5 transition ${viewMode === "grid" ? "bg-purp text-white shadow" : "text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-700"}`}>
+                                    <Grid3x3 size={18} />
+                                </button>
+                                <button onClick={() => setViewMode("list")} className={`rounded-md p-1.5 transition ${viewMode === "list" ? "bg-purp text-white shadow" : "text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-700"}`}>
+                                    <List size={18} />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
-          {/* Category Filters */}
-          <div className="mb-6">
-            <div className="flex gap-2 overflow-x-auto pb-2">
-              {categories.map((category) => {
-                const IconComponent = category.icon;
-                return (
-                  <button
-                    key={category.id}
-                    onClick={() => setSelectedCategory(category.id)}
-                    className={`flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition ${
-                      selectedCategory === category.id
-                        ? "border-purple-500 bg-purple-50 text-purple-700"
-                        : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300 hover:bg-neutral-50"
-                    }`}
-                  >
-                    <IconComponent size={16} />
-                    {category.label}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
+                    {/* Category Filters */}
+                    <div className="mb-6">
+                        <div className="flex gap-2 overflow-x-auto pb-2">
+                            {categories.map((category) => {
+                                const IconComponent = category.icon;
+                                return (
+                                    <button
+                                        key={category.id}
+                                        onClick={() => setSelectedCategory(category.id)}
+                                        className={`flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition ${
+                                            selectedCategory === category.id ? "border-purple-500 bg-purple-50 text-purple-700 dark:border-purple-500 dark:bg-purple-950/30 dark:text-purple-400" : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300 hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:border-neutral-600 dark:hover:bg-neutral-700"
+                                        }`}
+                                    >
+                                        <IconComponent size={16} />
+                                        {category.label}
+                                    </button>
+                                );
+                            })}
+                        </div>
+                    </div>
 
-          {/* Advanced Filters (Collapsible) */}
-          {showFilters && (
-            <div className="mb-6 rounded-xl border bg-white p-4">
-              <h3 className="mb-3 text-sm font-medium text-neutral-900">
-                Filter Lanjutan
-              </h3>
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                <div>
-                  <label className="mb-2 block text-xs font-medium text-neutral-700">
-                    Gaya
-                  </label>
-                  <select className="w-full rounded-lg border border-neutral-200 px-3 py-2 text-sm">
-                    <option>Semua Gaya</option>
-                    <option>Modern</option>
-                    <option>Traditional</option>
-                    <option>Minimalist</option>
-                    <option>Rustic</option>
-                  </select>
+                    {/* Advanced Filters (Collapsible) */}
+                    {showFilters && (
+                        <div className="mb-6 rounded-xl border bg-white p-4 dark:border-neutral-700 dark:bg-neutral-800/50">
+                            <h3 className="mb-3 text-sm font-medium text-neutral-900 dark:text-neutral-100">Filter Lanjutan</h3>
+                            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                                <div>
+                                    <label className="mb-2 block text-xs font-medium text-neutral-700 dark:text-neutral-300">Gaya</label>
+                                    <select className="w-full rounded-lg border border-neutral-200 px-3 py-2 text-sm dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100">
+                                        <option>Semua Gaya</option>
+                                        <option>Modern</option>
+                                        <option>Traditional</option>
+                                        <option>Minimalist</option>
+                                        <option>Rustic</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label className="mb-2 block text-xs font-medium text-neutral-700 dark:text-neutral-300">Popularitas</label>
+                                    <select className="w-full rounded-lg border border-neutral-200 px-3 py-2 text-sm dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100">
+                                        <option>Semua</option>
+                                        <option>Paling Populer</option>
+                                        <option>Trending</option>
+                                        <option>Terbaru</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Templates Grid/List */}
+                    {viewMode === "grid" ? <TemplateGrid /> : <TemplateList />}
                 </div>
-                <div>
-                  <label className="mb-2 block text-xs font-medium text-neutral-700">
-                    Popularitas
-                  </label>
-                  <select className="w-full rounded-lg border border-neutral-200 px-3 py-2 text-sm">
-                    <option>Semua</option>
-                    <option>Paling Populer</option>
-                    <option>Trending</option>
-                    <option>Terbaru</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Templates Grid/List */}
-          {viewMode === "grid" ? <TemplateGrid /> : <TemplateList />}
-        </div>
-      </main>
-    </>
-  );
+            </main>
+        </>
+    );
 }
