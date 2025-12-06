@@ -5,6 +5,7 @@ import { StatisticsCards } from "@/components/profile-page/statistics-cards";
 import { RecentActivity } from "@/components/profile-page/recent-activity";
 import { useAuth } from "@/hooks/use-auth";
 import { useStatistics } from "@/hooks/use-statistics";
+import { useTheme } from "@/hooks/use-theme";
 import { User, Mail, Calendar, Settings, Edit2, Camera, Shield, Bell, Palette } from "lucide-react";
 import Image from "next/image";
 import { useState, useEffect } from "react";
@@ -20,6 +21,7 @@ import { id as localeId } from "date-fns/locale";
 export default function ProfilePage() {
     const { user, loading } = useAuth();
     const { statistics, loading: statsLoading } = useStatistics();
+    const { isDark, setTheme } = useTheme();
     const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
     const [editedName, setEditedName] = useState("");
     const [isSaving, setIsSaving] = useState(false);
@@ -28,26 +30,10 @@ export default function ProfilePage() {
     const [emailNotifications, setEmailNotifications] = useState(true);
     const [pushNotifications, setPushNotifications] = useState(true);
     const [projectUpdates, setProjectUpdates] = useState(true);
-    const [darkMode, setDarkMode] = useState(false);
-
-    // Initialize dark mode from localStorage
-    useEffect(() => {
-        const savedDarkMode = localStorage.getItem("darkMode") === "true";
-        setDarkMode(savedDarkMode);
-        if (savedDarkMode) {
-            document.documentElement.classList.add("dark");
-        }
-    }, []);
 
     // Handle dark mode toggle
     const handleDarkModeToggle = (checked: boolean) => {
-        setDarkMode(checked);
-        localStorage.setItem("darkMode", checked.toString());
-        if (checked) {
-            document.documentElement.classList.add("dark");
-        } else {
-            document.documentElement.classList.remove("dark");
-        }
+        setTheme(checked ? "dark" : "light");
     };
 
     const handleEditProfile = () => {
@@ -276,7 +262,7 @@ export default function ProfilePage() {
                                                 <p className="font-medium text-neutral-900 dark:text-white">Dark Mode</p>
                                                 <p className="text-sm text-neutral-500 dark:text-neutral-400">Gunakan tema gelap</p>
                                             </div>
-                                            <Switch checked={darkMode} onCheckedChange={handleDarkModeToggle} />
+                                            <Switch checked={isDark} onCheckedChange={handleDarkModeToggle} />
                                         </div>
                                     </div>
                                 </div>
