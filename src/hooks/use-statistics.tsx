@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { UserStatistics } from "@/types/statistics";
-import { dummyUserStatistics } from "@/store/statisticStore";
 import { useAuth } from "@/hooks/use-auth";
+import axios from "axios";
 
 interface UseStatisticsReturn {
     statistics: UserStatistics | null;
@@ -13,7 +13,7 @@ interface UseStatisticsReturn {
 }
 
 /**
- * Hook to fetch user statistics (using dummy data for now)
+ * Hook to fetch user statistics from API
  *
  * @example
  * const { statistics, loading } = useStatistics();
@@ -21,8 +21,27 @@ interface UseStatisticsReturn {
 export function useStatistics(): UseStatisticsReturn {
     const [statistics, setStatistics] = useState<UserStatistics | null>(null);
     const [loading, setLoading] = useState(true);
-    const [error] = useState<string | null>(null);
+    const [error, setError] = useState<string | null>(null);
     const { user, loading: authLoading } = useAuth();
+
+    const fetchStatistics = async () => {
+        if (!user) {
+            setLoading(false);
+            return;
+        }
+
+        try {
+            setLoading(true);
+            setError(null);
+            const response = await axios.get("/api/user/statistics");
+            setStatistics(response.data);
+        } catch (err) {
+            console.error("Error fetching statistics:", err);
+            setError("Failed to load statistics");
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
         // Wait for auth to finish loading
@@ -30,40 +49,11 @@ export function useStatistics(): UseStatisticsReturn {
             return;
         }
 
-        // Simulate API loading delay
-        const timer = setTimeout(() => {
-            // Merge dummy data with actual user data
-            const actualStatistics = {
-                ...dummyUserStatistics,
-                // Use actual user's created_at date if available
-                joinDate: user?.created_at || dummyUserStatistics.joinDate,
-                // Update last active to current time
-                lastActive: new Date().toISOString(),
-            };
-
-            console.log("User created_at:", user?.created_at);
-            console.log("Statistics joinDate:", actualStatistics.joinDate);
-
-            setStatistics(actualStatistics);
-            setLoading(false);
-        }, 500);
-
-        // Cleanup timer on unmount
-        return () => clearTimeout(timer);
+        fetchStatistics();
     }, [user, authLoading]);
 
     const refetch = () => {
-        setLoading(true);
-        setTimeout(() => {
-            const actualStatistics = {
-                ...dummyUserStatistics,
-                joinDate: user?.created_at || dummyUserStatistics.joinDate,
-                lastActive: new Date().toISOString(),
-            };
-
-            setStatistics(actualStatistics);
-            setLoading(false);
-        }, 500);
+        fetchStatistics();
     };
 
     return { statistics, loading, error, refetch };
