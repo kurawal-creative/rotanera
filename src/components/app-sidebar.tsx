@@ -13,12 +13,12 @@ import {
 
 import {
   ChevronsUpDown,
+  CircleUser,
   GalleryVerticalEnd,
   LayoutGrid,
   LayoutTemplate,
   LogOut,
   Plus,
-  Settings,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -150,9 +150,11 @@ export function AppSidebar() {
 
             <DropdownMenuSeparator />
 
-            <DropdownMenuItem>
-              <Settings className="mr-2 h-4 w-4" />
-              <span>Pengaturan</span>
+            <DropdownMenuItem asChild>
+              <Link href="/profile" className="cursor-pointer">
+                <CircleUser className="mr-2 h-4 w-4" />
+                <span>Profile</span>
+              </Link>
             </DropdownMenuItem>
 
             <DropdownMenuSeparator />
