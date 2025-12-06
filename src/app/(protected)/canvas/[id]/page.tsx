@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { PaintApp, type PaintAppRef } from "@/components/paint-app";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

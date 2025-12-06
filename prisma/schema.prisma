@@ -24,6 +24,7 @@ id              String    @id @default(uuid()) @db.Uuid
   updatedAt       DateTime  @updatedAt
   projects        Project[]
   templates       Template[]
+  favorites       Favorite[]
 }
 
 model Project {
@@ -45,8 +46,24 @@ model Image {
   projectId String
   project   Project  @relation(fields: [projectId], references: [id])
 
+  views     Int      @default(0)
+  downloads Int      @default(0)
+  favorites Favorite[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Favorite {
+  id        String   @id @default(uuid())
+  userId    String   @db.Uuid
+  imageId   String
+  user      User     @relation(fields: [userId], references: [id])
+  image     Image    @relation(fields: [imageId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, imageId])
 }
 
 model Template {
