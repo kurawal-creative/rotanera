@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { Topbar } from "@/components/app-topbar";
 import PinterestMasonry from "@/components/galeri-page/pinterest-masonry";
 import { useGalleries } from "@/store/galeriesStore";
@@ -31,9 +32,13 @@ const sortOptions = [
 ];
 
 export default function GaleriPage() {
-    const { selectedCategory, setSelectedCategory, searchQuery, setSearchQuery, sortBy, setSortBy, filteredImages } = useGalleries();
+    const { selectedCategory, setSelectedCategory, searchQuery, setSearchQuery, sortBy, setSortBy, filteredImages, fetchImages, loading } = useGalleries();
 
     const [showFilters, setShowFilters] = useState(false);
+
+    useEffect(() => {
+        fetchImages();
+    }, [fetchImages]);
 
     return (
         <>
@@ -47,7 +52,7 @@ export default function GaleriPage() {
                     {/* Header */}
                     <div className="mb-6">
                         <h1 className="text-2xl font-semibold text-neutral-900 dark:text-neutral-100">Galeri Furniture Rotan</h1>
-                        <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">Jelajahi {filteredImages.length} inspirasi desain furniture rotan dari komunitas</p>
+                        <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">{loading ? "Memuat galeri..." : `Jelajahi ${filteredImages.length} inspirasi desain furniture rotan dari komunitas`}</p>
                     </div>
 
                     {/* Search and Filters */}

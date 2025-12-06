@@ -1,6 +1,6 @@
 import { Sidebar, SidebarHeader, SidebarFooter, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 
-import { ChevronsUpDown, CircleUser, GalleryVerticalEnd, LayoutGrid, LayoutTemplate, LogOut, Plus } from "lucide-react";
+import { ChevronsUpDown, CircleUser, GalleryVerticalEnd, LayoutGrid, LayoutTemplate, LogOut, Plus, Zap } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { Avatar } from "./ui/avatar";
 import UserAvatar from "./user-avatar";
@@ -10,6 +10,7 @@ import { useAuth } from "@/hooks/use-auth";
 const items = [
     { title: "Project", url: "/project", icon: LayoutGrid },
     { title: "Galeri", url: "/galeri", icon: GalleryVerticalEnd },
+    { title: "Improve Design", url: "/improve", icon: Zap },
     { title: "Template Project", url: "/template-project", icon: LayoutTemplate },
 ];
 

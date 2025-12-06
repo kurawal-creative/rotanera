@@ -14,9 +14,27 @@ import { Sparkles, Clock, Download, Loader2, Wand2, Image as ImageIcon } from "l
 export default function CanvasPage() {
     const { id } = useParams();
     const paintAppRef = useRef<PaintAppRef>(null);
-    const [generatedImages, setGeneratedImages] = useState<string[]>([]);
+    const [generatedImages, setGeneratedImages] = useState<Array<{ url: string; createdAt: string }>>([]);
     const [isProcessing, setIsProcessing] = useState(false);
     const [prompt, setPrompt] = useState("ubah gambar ini menjadi desain rotan yang realistis dan indah");
+
+    useEffect(() => {
+        const fetchProjectImages = async () => {
+            try {
+                const response = await axios.get(`/api/project/${id}`);
+                const images = response.data.project.images
+                    .map((img: { url: string; createdAt: string }) => ({
+                        url: img.url,
+                        createdAt: img.createdAt,
+                    }))
+                    .sort((a: { createdAt: string }, b: { createdAt: string }) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+                setGeneratedImages(images);
+            } catch (error) {
+                console.error("Error fetching project images:", error);
+            }
+        };
+        fetchProjectImages();
+    }, [id]);
 
     const handleGenerate = useCallback(async () => {
         const dataUrl = paintAppRef.current?.exportImage();
@@ -39,7 +57,7 @@ export default function CanvasPage() {
             const apiResponse = await axios.post("/api/generate-image", formData);
 
             const generatedUrl = apiResponse.data.image;
-            setGeneratedImages((prev) => [generatedUrl, ...prev]);
+            setGeneratedImages((prev) => [{ url: generatedUrl, createdAt: new Date().toISOString() }, ...prev]);
         } catch (error) {
             console.error("Error generating image:", error);
             alert("Gagal menghasilkan gambar. Coba lagi.");
@@ -49,7 +67,8 @@ export default function CanvasPage() {
     }, [prompt, id]);
 
     const handleReset = useCallback(() => {
-        setGeneratedImages([]);
+        // Reset canvas, but keep history
+        // setGeneratedImages([]);
     }, []);
 
     const handleDownloadImage = useCallback((url: string) => {
@@ -151,7 +170,7 @@ export default function CanvasPage() {
                                 <div className="mb-4 flex items-center justify-between">
                                     <div className="flex items-center gap-2">
                                         <ImageIcon className="h-5 w-5 text-purple-600 dark:text-purple-400" />
-                                        <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Recent Generations</h2>
+                                        <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Generation History</h2>
                                     </div>
                                     {generatedImages.length > 0 && <span className="rounded-full bg-purple-100 px-3 py-1 text-xs font-medium text-purple-700 dark:bg-purple-950/30 dark:text-purple-400">{generatedImages.length}</span>}
                                 </div>
@@ -169,22 +188,24 @@ export default function CanvasPage() {
                                         </p>
                                     </div>
                                 ) : (
-                                    <div className="max-h-[calc(100vh-16rem)] space-y-3 overflow-y-auto">
-                                        {generatedImages.map((img, index) => (
-                                            <div key={index} className="group relative aspect-square overflow-hidden rounded-xl border border-neutral-200 bg-linear-to-br from-purple-50 to-violet-100 transition-all hover:border-purple-300 hover:shadow-md dark:border-neutral-700 dark:from-purple-950/20 dark:to-violet-950/20 dark:hover:border-purple-600">
-                                                <Image src={img} alt={`Generated ${index + 1}`} fill className="object-cover transition-transform group-hover:scale-105" />
-                                                <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100">
-                                                    <div className="absolute right-2 bottom-2 flex gap-2">
-                                                        <Button size="sm" variant="secondary" className="h-8 w-8 rounded-full p-0 shadow-lg" onClick={() => handleDownloadImage(img)}>
-                                                            <Download className="h-4 w-4" />
-                                                        </Button>
-                                                    </div>
-                                                    <div className="absolute top-2 left-2">
-                                                        <span className="rounded-full bg-white/90 px-2 py-1 text-xs font-medium text-neutral-900">#{generatedImages.length - index}</span>
+                                    <div className="max-h-[calc(100vh-16rem)] overflow-y-auto">
+                                        <div className="grid grid-cols-2 gap-3">
+                                            {generatedImages.map((img, index) => (
+                                                <div key={index} className="group relative aspect-video overflow-hidden rounded-lg border border-neutral-200 bg-linear-to-br from-purple-50 to-violet-100 transition-all hover:border-purple-300 hover:shadow-md dark:border-neutral-700 dark:from-purple-950/20 dark:to-violet-950/20 dark:hover:border-purple-600">
+                                                    <Image src={img.url} alt={`Generated ${index + 1}`} fill className="object-cover transition-transform group-hover:scale-105" />
+                                                    <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100">
+                                                        <div className="absolute right-1 bottom-1 flex gap-1">
+                                                            <Button size="sm" variant="secondary" className="h-6 w-6 rounded-full p-0 shadow-lg" onClick={() => handleDownloadImage(img.url)}>
+                                                                <Download className="h-3 w-3" />
+                                                            </Button>
+                                                        </div>
+                                                        <div className="absolute top-1 left-1">
+                                                            <span className="rounded-full bg-white/90 px-1.5 py-0.5 text-xs font-medium text-neutral-900">#{generatedImages.length - index}</span>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        ))}
+                                            ))}
+                                        </div>
                                     </div>
                                 )}
                             </div>

@@ -6,7 +6,7 @@ import { RecentActivity } from "@/components/profile-page/recent-activity";
 import { useAuth } from "@/hooks/use-auth";
 import { useStatistics } from "@/hooks/use-statistics";
 import { useTheme } from "@/hooks/use-theme";
-import { User, Mail, Calendar, Settings, Edit2, Camera, Shield, Bell, Palette } from "lucide-react";
+import { User, Mail, Calendar, Settings, Edit2, Camera, Palette } from "lucide-react";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
@@ -25,11 +25,6 @@ export default function ProfilePage() {
     const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
     const [editedName, setEditedName] = useState("");
     const [isSaving, setIsSaving] = useState(false);
-
-    // Settings state
-    const [emailNotifications, setEmailNotifications] = useState(true);
-    const [pushNotifications, setPushNotifications] = useState(true);
-    const [projectUpdates, setProjectUpdates] = useState(true);
 
     // Handle dark mode toggle
     const handleDarkModeToggle = (checked: boolean) => {
@@ -205,45 +200,6 @@ export default function ProfilePage() {
                         {/* Settings Tab */}
                         <TabsContent value="settings">
                             <div className="grid gap-6 lg:grid-cols-2">
-                                {/* Notifications Settings */}
-                                <div className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-800">
-                                    <div className="mb-4 flex items-center gap-3">
-                                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/50">
-                                            <Bell className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-                                        </div>
-                                        <div>
-                                            <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">Notifikasi</h3>
-                                            <p className="text-sm text-neutral-600 dark:text-neutral-400">Kelola preferensi notifikasi</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="space-y-4">
-                                        <div className="flex items-center justify-between rounded-lg border p-4 dark:border-neutral-700">
-                                            <div>
-                                                <p className="font-medium text-neutral-900 dark:text-white">Email Notifications</p>
-                                                <p className="text-sm text-neutral-500 dark:text-neutral-400">Terima notifikasi via email</p>
-                                            </div>
-                                            <Switch checked={emailNotifications} onCheckedChange={setEmailNotifications} />
-                                        </div>
-
-                                        <div className="flex items-center justify-between rounded-lg border p-4 dark:border-neutral-700">
-                                            <div>
-                                                <p className="font-medium text-neutral-900 dark:text-white">Push Notifications</p>
-                                                <p className="text-sm text-neutral-500 dark:text-neutral-400">Notifikasi push di browser</p>
-                                            </div>
-                                            <Switch checked={pushNotifications} onCheckedChange={setPushNotifications} />
-                                        </div>
-
-                                        <div className="flex items-center justify-between rounded-lg border p-4 dark:border-neutral-700">
-                                            <div>
-                                                <p className="font-medium text-neutral-900 dark:text-white">Project Updates</p>
-                                                <p className="text-sm text-neutral-500 dark:text-neutral-400">Update tentang proyek Anda</p>
-                                            </div>
-                                            <Switch checked={projectUpdates} onCheckedChange={setProjectUpdates} />
-                                        </div>
-                                    </div>
-                                </div>
-
                                 {/* Appearance Settings */}
                                 <div className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-800">
                                     <div className="mb-4 flex items-center gap-3">
@@ -264,31 +220,6 @@ export default function ProfilePage() {
                                             </div>
                                             <Switch checked={isDark} onCheckedChange={handleDarkModeToggle} />
                                         </div>
-                                    </div>
-                                </div>
-
-                                {/* Security Settings */}
-                                <div className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-800">
-                                    <div className="mb-4 flex items-center gap-3">
-                                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/50">
-                                            <Shield className="h-5 w-5 text-red-600 dark:text-red-400" />
-                                        </div>
-                                        <div>
-                                            <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">Keamanan</h3>
-                                            <p className="text-sm text-neutral-600 dark:text-neutral-400">Kelola keamanan akun</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="space-y-3">
-                                        <Button variant="outline" className="w-full justify-start dark:border-neutral-700 dark:bg-neutral-700 dark:text-white dark:hover:bg-neutral-600">
-                                            Ubah Password
-                                        </Button>
-                                        <Button variant="outline" className="w-full justify-start dark:border-neutral-700 dark:bg-neutral-700 dark:text-white dark:hover:bg-neutral-600">
-                                            Two-Factor Authentication
-                                        </Button>
-                                        <Button variant="outline" className="w-full justify-start text-red-600 dark:border-neutral-700 dark:bg-neutral-700 dark:text-red-400 dark:hover:bg-neutral-600">
-                                            Hapus Akun
-                                        </Button>
                                     </div>
                                 </div>
 

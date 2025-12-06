@@ -1,34 +1,57 @@
 import axios from "axios";
-import { API_KEY, API_URL } from "@/config";
 import { NextRequest, NextResponse } from "next/server";
 import { createStorageSupabaseClient } from "@/lib/supabase/storage";
 import prisma from "@/lib/prisma";
+import { getCurrentUser } from "@/lib/supabase/server";
+
+const KURAWAL_URL = process.env.API_URL ?? "";
+const KURAWAL_API_KEY = process.env.API_KEY ?? "";
 
 export async function POST(request: NextRequest) {
     try {
-        const formData = await request.formData();
-        const prompt = formData.get("prompt") as string;
-        const image = formData.get("image") as File;
-        const projectId = formData.get("projectId") as string;
-
-        if (!prompt || !image || !projectId) {
-            return NextResponse.json({ error: "Prompt, image, and projectId are required" }, { status: 400 });
+        const user = await getCurrentUser();
+        if (!user) {
+            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        const apiFormData = new FormData();
-        apiFormData.append("prompt", prompt);
-        apiFormData.append("image", image);
+        const formData = await request.formData();
+        const prompt = (formData.get("prompt") as string) ?? "";
+        const imageEntry = formData.get("image");
 
-        const response = await axios.post(API_URL, apiFormData, {
+        if (!prompt || !imageEntry) {
+            return NextResponse.json({ error: "Both `prompt` and `image` are required" }, { status: 400 });
+        }
+
+        if (!(imageEntry instanceof File)) {
+            return NextResponse.json({ error: "`image` must be a file" }, { status: 400 });
+        }
+
+        if (!KURAWAL_URL || !KURAWAL_API_KEY) {
+            return NextResponse.json({ error: "Kurawal configuration is missing" }, { status: 500 });
+        }
+
+        const payload = new FormData();
+        payload.append("image", imageEntry, imageEntry.name || "uploaded.png");
+        payload.append("prompt", prompt);
+
+        const response = await axios.post(KURAWAL_URL, payload, {
             headers: {
-                "x-api-key": API_KEY,
-                "Content-Type": "multipart/form-data",
+                "x-api-key": KURAWAL_API_KEY,
             },
             responseType: "arraybuffer",
         });
 
         // Convert to buffer for upload
         const buffer = Buffer.from(response.data, "binary");
+
+        // Create temporary project
+        const project = await prisma.project.create({
+            data: {
+                name: `Improve-${Date.now()}`,
+                userId: user.id,
+            },
+        });
+        const projectId = project.id;
 
         // Save to database first with placeholder URL
         let savedImage;
@@ -47,7 +70,7 @@ export async function POST(request: NextRequest) {
         // Upload to Supabase Storage
         const supabase = createStorageSupabaseClient();
         const bucketName = process.env.SUPABASE_STORAGE_BUCKET!;
-        const fileName = `generated-${Date.now()}.png`;
+        const fileName = `improved-${Date.now()}.png`;
         const { error: uploadError } = await supabase.storage.from(bucketName).upload(fileName, buffer, {
             contentType: "image/png",
         });
@@ -81,7 +104,7 @@ export async function POST(request: NextRequest) {
 
         return NextResponse.json({ image: imageUrl, id: savedImage.id });
     } catch (error) {
-        console.error("Error generating image:", error);
-        return NextResponse.json({ error: "Failed to generate image" }, { status: 500 });
+        console.error("Error improving image:", error);
+        return NextResponse.json({ error: "Failed to improve image" }, { status: 500 });
     }
 }

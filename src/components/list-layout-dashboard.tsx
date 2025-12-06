@@ -1,6 +1,6 @@
 "use client";
 import { useProjects } from "@/store/projectsStore";
-import { Clock, File, ImageIcon } from "lucide-react";
+import { Clock, File } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 

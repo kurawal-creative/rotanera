@@ -1,20 +1,37 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { flushSync } from "react-dom";
 
 type Theme = "light" | "dark";
 
 export function useTheme() {
-    const [theme, setTheme] = useState<Theme>("light");
     const [mounted, setMounted] = useState(false);
+    const [theme, setTheme] = useState<Theme>(() => {
+        // Initialize from localStorage if available (client-side only)
+        if (typeof window !== "undefined") {
+            const savedTheme = localStorage.getItem("darkMode");
+            const isDark = savedTheme === "true";
+            return isDark ? "dark" : "light";
+        }
+        return "light";
+    });
 
-    // Initialize theme from localStorage on mount
+    // Mark as mounted using flushSync to avoid cascading render warning
     useEffect(() => {
-        setMounted(true);
-        const savedTheme = localStorage.getItem("darkMode");
-        const isDark = savedTheme === "true";
-        setTheme(isDark ? "dark" : "light");
+        flushSync(() => {
+            setMounted(true);
+        });
     }, []);
+
+    // Apply theme class to document
+    useEffect(() => {
+        if (theme === "dark") {
+            document.documentElement.classList.add("dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+        }
+    }, [theme]);
 
     // Toggle theme function
     const toggleTheme = () => {

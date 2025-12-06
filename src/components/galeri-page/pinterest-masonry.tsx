@@ -1,13 +1,23 @@
 "use client";
 
-import { useGalleries, type GalleryImage } from "@/store/galeriesStore";
-import { Heart, Eye, Download, User } from "lucide-react";
+import { useGalleries } from "@/store/galeriesStore";
+import { Heart, Eye, Download, User, Loader2 } from "lucide-react";
 import { useState } from "react";
 import Image from "next/image";
 
 export default function PinterestMasonry() {
-    const { filteredImages, toggleLike } = useGalleries();
+    const { filteredImages, toggleLike, loading } = useGalleries();
     const [hoveredId, setHoveredId] = useState<string | null>(null);
+
+    if (loading) {
+        return (
+            <div className="flex flex-col items-center justify-center py-20 text-center">
+                <Loader2 className="mb-4 h-12 w-12 animate-spin text-purple-600" />
+                <h3 className="text-lg font-medium text-neutral-900 dark:text-neutral-100">Memuat galeri...</h3>
+                <p className="mt-2 text-sm text-neutral-500 dark:text-neutral-400">Sedang mengambil gambar dari database</p>
+            </div>
+        );
+    }
 
     if (filteredImages.length === 0) {
         return (
@@ -25,17 +35,7 @@ export default function PinterestMasonry() {
                 <div key={image.id} className="group relative break-inside-avoid overflow-hidden rounded-xl bg-white shadow-sm transition-all hover:shadow-xl dark:border dark:border-neutral-700 dark:bg-neutral-800/50" onMouseEnter={() => setHoveredId(image.id)} onMouseLeave={() => setHoveredId(null)}>
                     {/* Image Container */}
                     <div className="relative w-full overflow-hidden bg-linear-to-br from-purple-50 to-violet-100 dark:from-purple-950/30 dark:to-violet-950/30">
-                        {/* Placeholder with aspect ratio */}
-                        <div
-                            className="relative w-full"
-                            style={{
-                                paddingBottom: `${(image.height / image.width) * 100}%`,
-                            }}
-                        >
-                            <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="text-4xl text-purple-200">🪑</div>
-                            </div>
-                        </div>
+                        <Image src={image.imageUrl} alt={image.title} width={image.width} height={image.height} className="h-auto w-full object-cover transition-transform duration-300 group-hover:scale-105" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw" />
 
                         {/* Overlay on Hover */}
                         <div className={`absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent transition-opacity duration-300 ${hoveredId === image.id ? "opacity-100" : "opacity-0"}`}>
