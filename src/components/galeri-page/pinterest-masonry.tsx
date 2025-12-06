@@ -2,8 +2,8 @@
 
 import { useGalleries } from "@/store/galeriesStore";
 import { Heart, Eye, Download, User, Loader2 } from "lucide-react";
-import { useState } from "react";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function PinterestMasonry() {
     const { filteredImages, toggleLike, loading } = useGalleries();

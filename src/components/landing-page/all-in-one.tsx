@@ -39,10 +39,13 @@ const AllInOneSection = ({
   ];
   return (
     <>
-      <section className="mx-auto w-full max-w-7xl items-center px-4 py-12">
+      <section className="mx-auto w-full max-w-7xl items-center px-4 py-10">
         <div className="flex items-center gap-8">
           <div className="flex-1/6">
             <div className="flex max-w-xl flex-col justify-start space-y-3">
+              <div className="text-purp border-purp flex w-fit justify-center rounded-full border-2 px-2 py-1 text-sm">
+                Any Question About Us?
+              </div>
               <h1 className="text-5xl leading-tight font-semibold text-neutral-800">
                 Satu Platform untuk Semua{" "}
                 <span className="text-purp">Kebutuhan Desain Rotan</span>
