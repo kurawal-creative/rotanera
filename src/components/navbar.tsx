@@ -7,10 +7,10 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 
 const menuItems = [
-  { name: "About", href: "#about" },
-  { name: "Products", href: "#products" },
-  { name: "Pricing", href: "#pricing" },
-  { name: "Contact", href: "#contact" },
+  { name: "Tentang Kami", href: "/tentang-kami" },
+  { name: "Library", href: "/library" },
+  { name: "Harga", href: "/harga" },
+  { name: "Kontak Kami", href: "/kontak-kami" },
 ];
 
 const Navbar = () => {
@@ -57,8 +57,10 @@ const Navbar = () => {
 
         {/* Desktop Buttons */}
         <div className="hidden items-center gap-3 md:flex">
-          <Button asChild className="rounded-full">
-            <Link href="/login">Login</Link>
+          <Button className="group rounded-full border font-semibold text-white backdrop-blur-md transition-all duration-300 ease-out active:scale-[0.97]">
+            <Link href="/login" className="flex items-center gap-2">
+              Mulai Sekarang{" "}
+            </Link>
           </Button>
         </div>
 

@@ -1,82 +1,48 @@
-import Image from "next/image";
 import { NumberTicker } from "../ui/number-ticker";
 
-import image from "@/assets/image/why-use-us.jpg";
-import blobGradient from "@/assets/image/blob-gradient.jpg";
+const stats = [
+  { value: 96, suffix: "%", decimals: 0, label: "Akurasi desain realistis" },
+  { value: 9.2, suffix: "x", decimals: 1, label: "Lebih cepat dari manual" },
+  { value: 200, suffix: "+", decimals: 0, label: "Pengrajin menggunakan" },
+  { value: 15, suffix: "K", decimals: 0, label: "Blueprint dihasilkan" },
+];
 
-const WhyUseUsSection = () => {
+export default function WhyUseUsSection() {
   return (
-    <>
-      <section className="mx-auto w-full max-w-7xl items-center px-4 py-12">
-        <div className="flex items-center gap-8">
-          <div className="relative flex-1">
-            {/* Blob background */}
-            <div className="absolute -top-28 right-12 -z-10 h-[600px] w-[600px]">
-              <Image
-                src={blobGradient}
-                alt="blob"
-                className="h-full w-full scale-x-[-1] scale-y-[-1] object-contain"
-              />
-            </div>
-
-            {/* Image utama */}
-            <div className="relative left-20 h-90 w-90">
-              <Image
-                src={image}
-                alt="gambar orang ngerotan"
-                fill
-                sizes="(max-width: 768px) 100vw, 256px"
-                className="z-50 rounded-sm object-cover shadow-sm"
-              />
-            </div>
+    <section className="mx-auto w-full max-w-7xl items-center px-4 pt-10">
+      <div className="flex flex-col items-center gap-8 md:flex-row">
+        <div className="flex-1 space-y-3">
+          <div className="text-purp border-purp flex w-fit justify-center rounded-full border-2 px-2 py-1 text-sm">
+            Why Use Us
           </div>
-
-          <div className="flex-1/12">
-            <div className="flex max-w-xl flex-col justify-start space-y-3">
-              <h1 className="text-5xl leading-tight font-semibold text-neutral-800">
-                Hasil Desain Rotan Lebih{" "}
-                <span className="text-purp">Cepat & Presisi</span>
-              </h1>
-              <p className="font-mono text-base text-neutral-700">
-                AI Rotanera mengubah sketsa kasar menjadi blueprint anyaman
-                akurat & model 3D siap produksi. Pengrajin bisa fokus berkarya,
-                bukan menggambar ulang berjam-jam.
-              </p>
-            </div>
-            <div className="mt-8 flex flex-wrap items-center gap-12">
-              <div>
-                <div>
+          <h1 className="text-5xl leading-tight font-semibold text-neutral-800">
+            Desain Rotan Premium,{" "}
+            <span className="text-purp">
+              Kini Lebih Cepat & Presisi Maksimal
+            </span>
+          </h1>
+        </div>
+        <div className="flex-1">
+          <div className="mt-8 grid grid-cols-2 gap-12 sm:grid-cols-2">
+            {stats.map((s, i) => (
+              <div key={i} className="text-center">
+                <div className="flex items-baseline justify-center gap-1">
                   <NumberTicker
-                    startValue={50}
-                    value={96}
-                    className="text-4xl font-bold md:text-6xl"
-                  />{" "}
-                  <span className="text-4xl font-bold md:text-6xl">%</span>
-                </div>
-                <div className="mt-2 text-lg text-neutral-600">
-                  Akurasi desain realistis
-                </div>
-              </div>
-              <div className="hidden h-12 w-0.5 bg-neutral-300 md:block" />
-              <div>
-                <div>
-                  <NumberTicker
-                    value={9.2}
-                    decimalPlaces={1}
+                    startValue={0}
+                    value={s.value}
+                    decimalPlaces={s.decimals}
                     className="text-4xl font-bold md:text-6xl"
                   />
-                  <span className="text-4xl font-bold md:text-6xl">x</span>
+                  <span className="text-4xl font-bold md:text-6xl">
+                    {s.suffix}
+                  </span>
                 </div>
-                <div className="mt-2 text-lg text-neutral-600">
-                  Lebih cepat dari desain manual
-                </div>
+                <div className="mt-2 text-lg text-neutral-600">{s.label}</div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
-};
-
-export default WhyUseUsSection;
+}

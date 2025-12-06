@@ -8,10 +8,7 @@ import { ArrowRight } from "lucide-react";
 
 const HeroSection = () => {
   return (
-    <section
-      className="relative mx-auto -mt-16 flex min-h-screen w-full max-w-7xl items-center px-4"
-      style={{ fontFamily: "Satoshi, sans-serif" }}
-    >
+    <section className="relative mx-auto -mt-16 flex min-h-screen w-full max-w-7xl items-center px-4">
       <div className="flex w-full flex-col items-center gap-12 md:flex-row md:items-start">
         {/* Kiri */}
         <div className="max-w-xl flex-1 space-y-5 text-left md:text-left">
@@ -26,23 +23,15 @@ const HeroSection = () => {
           </p>
 
           <div className="flex items-center gap-4">
-            <Button className="group rounded-full border font-semibold text-white backdrop-blur-md transition-all duration-300 ease-out active:scale-[0.97]">
-              <Link href="#" className="flex items-center gap-2">
-                Coba Sekarang{" "}
+            <Button className="group rounded-full border px-4 py-2 font-semibold text-white backdrop-blur-md transition-all duration-300 ease-out active:scale-[0.97]">
+              <Link href="/login" className="flex items-center gap-2">
+                Coba Gratis{" "}
                 <ArrowRight
                   size={16}
                   className="transition-transform duration-300 ease-out group-hover:translate-x-1"
                 />
               </Link>
             </Button>
-
-            <Link
-              href="/tentang-kami"
-              className="group relative text-neutral-800 transition-colors duration-300 hover:text-neutral-900"
-            >
-              Lihat semua fitur kami
-              <span className="absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-neutral-800 transition-all duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)] group-hover:w-full" />
-            </Link>
           </div>
         </div>
 

@@ -1,8 +1,11 @@
 const FeaturesSection = () => {
   return (
     <>
-      <section className="mx-auto w-full max-w-7xl items-center px-4 py-12">
+      <section className="mx-auto w-full max-w-7xl items-center px-4 pb-10">
         <div className="mx-auto flex max-w-2xl flex-col items-center justify-center space-y-3 text-center">
+          <div className="text-purp border-purp mx-auto flex w-fit justify-center rounded-full border-2 px-2 py-1 text-sm">
+            Our Features
+          </div>
           <h1 className="text-5xl leading-tight font-semibold text-neutral-800">
             Fitur Premium yang Membuat Desain Rotan Anda Hidup
           </h1>
