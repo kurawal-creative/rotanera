@@ -13,8 +13,8 @@ export default function PinterestMasonry() {
         return (
             <div className="flex flex-col items-center justify-center py-20 text-center">
                 <div className="mb-4 text-6xl">🖼️</div>
-                <h3 className="text-lg font-medium text-neutral-900">Tidak ada gambar ditemukan</h3>
-                <p className="mt-2 text-sm text-neutral-500">Coba ubah filter atau kata kunci pencarian</p>
+                <h3 className="text-lg font-medium text-neutral-900 dark:text-neutral-100">Tidak ada gambar ditemukan</h3>
+                <p className="mt-2 text-sm text-neutral-500 dark:text-neutral-400">Coba ubah filter atau kata kunci pencarian</p>
             </div>
         );
     }
@@ -22,9 +22,9 @@ export default function PinterestMasonry() {
     return (
         <div className="columns-1 gap-4 space-y-4 sm:columns-2 lg:columns-3 xl:columns-4">
             {filteredImages.map((image) => (
-                <div key={image.id} className="group relative break-inside-avoid overflow-hidden rounded-xl bg-white shadow-sm transition-all hover:shadow-xl" onMouseEnter={() => setHoveredId(image.id)} onMouseLeave={() => setHoveredId(null)}>
+                <div key={image.id} className="group relative break-inside-avoid overflow-hidden rounded-xl bg-white shadow-sm transition-all hover:shadow-xl dark:border dark:border-neutral-700 dark:bg-neutral-800/50" onMouseEnter={() => setHoveredId(image.id)} onMouseLeave={() => setHoveredId(null)}>
                     {/* Image Container */}
-                    <div className="relative w-full overflow-hidden bg-linear-to-br from-purple-50 to-violet-100">
+                    <div className="relative w-full overflow-hidden bg-linear-to-br from-purple-50 to-violet-100 dark:from-purple-950/30 dark:to-violet-950/30">
                         {/* Placeholder with aspect ratio */}
                         <div
                             className="relative w-full"
@@ -81,11 +81,11 @@ export default function PinterestMasonry() {
                     <div className="p-3">
                         <div className="flex flex-wrap gap-1.5">
                             {image.tags.slice(0, 3).map((tag) => (
-                                <span key={tag} className="rounded-full bg-purple-50 px-2 py-0.5 text-xs text-purple-600">
+                                <span key={tag} className="rounded-full bg-purple-50 px-2 py-0.5 text-xs text-purple-600 dark:bg-purple-950/30 dark:text-purple-400">
                                     #{tag}
                                 </span>
                             ))}
-                            {image.tags.length > 3 && <span className="rounded-full bg-neutral-100 px-2 py-0.5 text-xs text-neutral-500">+{image.tags.length - 3}</span>}
+                            {image.tags.length > 3 && <span className="rounded-full bg-neutral-100 px-2 py-0.5 text-xs text-neutral-500 dark:bg-neutral-700 dark:text-neutral-400">+{image.tags.length - 3}</span>}
                         </div>
                     </div>
                 </div>
