@@ -1,123 +1,181 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { PaintApp, type PaintAppRef } from "@/components/paint-app";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import Image from "next/image";
+import { Image as ImageType } from "@/types/image";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { MoreVertical } from "lucide-react";
 
 export default function CanvasPage() {
-  const { id } = useParams();
-  const paintAppRef = useRef<PaintAppRef>(null);
-  const [generatedImages, setGeneratedImages] = useState<string[]>([]);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [prompt, setPrompt] = useState(
-    "ubah gambar ini menjadi desain rotan yang realistis dan indah",
-  );
+    const { id } = useParams();
+    const paintAppRef = useRef<PaintAppRef>(null);
+    const [generatedImages, setGeneratedImages] = useState<string[]>([]);
+    const [historyImages, setHistoryImages] = useState<ImageType[]>([]);
+    const [isProcessing, setIsProcessing] = useState(false);
+    const [prompt, setPrompt] = useState("ubah gambar ini menjadi desain rotan yang realistis dan indah");
+    const [selectedImage, setSelectedImage] = useState<ImageType | null>(null);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const handleGenerate = useCallback(async () => {
-    const dataUrl = paintAppRef.current?.exportImage();
-    if (!dataUrl) {
-      alert("Tidak ada gambar di canvas.");
-      return;
-    }
+    useEffect(() => {
+        const fetchProject = async () => {
+            try {
+                const response = await axios.get(`/api/project/${id}`);
+                setHistoryImages(response.data.project.images || []);
+            } catch (error) {
+                console.error("Error fetching project:", error);
+            }
+        };
+        if (id) fetchProject();
+    }, [id]);
 
-    setIsProcessing(true);
-    try {
-      // Convert dataUrl to File
-      const response = await fetch(dataUrl);
-      const blob = await response.blob();
-      const file = new File([blob], "canvas.png", { type: "image/png" });
+    const handleGenerate = useCallback(async () => {
+        const dataUrl = paintAppRef.current?.exportImage();
+        if (!dataUrl) {
+            alert("Tidak ada gambar di canvas.");
+            return;
+        }
 
-      // Prepare FormData
-      const formData = new FormData();
-      formData.append("prompt", prompt);
-      formData.append("image", file);
+        setIsProcessing(true);
+        try {
+            // Convert dataUrl to File
+            const response = await fetch(dataUrl);
+            const blob = await response.blob();
+            const file = new File([blob], "canvas.png", { type: "image/png" });
 
-      // Call API route
-      const apiResponse = await axios.post("/api/generate-image", formData);
+            // Prepare FormData
+            const formData = new FormData();
+            formData.append("prompt", prompt);
+            formData.append("image", file);
+            formData.append("projectId", id as string);
 
-      const generatedUrl = apiResponse.data.image;
-      setGeneratedImages((prev) => [...prev, generatedUrl]);
-    } catch (error) {
-      console.error("Error generating image:", error);
-      alert("Gagal menghasilkan gambar. Coba lagi.");
-    } finally {
-      setIsProcessing(false);
-    }
-  }, [prompt]);
+            // Call API route
+            const apiResponse = await axios.post("/api/generate-image", formData);
 
-  const handleReset = useCallback(() => {
-    setGeneratedImages([]);
-  }, []);
+            const generatedUrl = apiResponse.data.image;
+            setGeneratedImages((prev) => [...prev, generatedUrl]);
+        } catch (error) {
+            console.error("Error generating image:", error);
+            alert("Gagal menghasilkan gambar. Coba lagi.");
+        } finally {
+            setIsProcessing(false);
+        }
+    }, [prompt]);
 
-  return (
-    <>
-      <main className="p-4">
-        <h1 className="text-2xl font-bold">Canvas Project</h1>
-        <p className="text-neutral-600">ID: {id}</p>
+    const handleReset = useCallback(() => {
+        setGeneratedImages([]);
+    }, []);
 
-        <PaintApp
-          ref={paintAppRef}
-          onReset={handleReset}
-          width={800}
-          height={600}
-        />
+    const handleViewImage = useCallback((image: ImageType) => {
+        setSelectedImage(image);
+        setIsDialogOpen(true);
+    }, []);
 
-        <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-end">
-          <div className="flex-1">
-            <label
-              htmlFor="prompt"
-              className="block text-sm font-medium text-neutral-700"
-            >
-              Prompt
-            </label>
-            <input
-              id="prompt"
-              type="text"
-              value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
-              className="mt-1 block w-full rounded-md border border-neutral-300 px-3 py-2 shadow-sm focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none"
-              placeholder="Masukkan prompt untuk generate gambar"
-            />
-          </div>
-          <Button
-            onClick={handleGenerate}
-            disabled={isProcessing}
-            className="bg-purple-600 hover:bg-purple-700"
-          >
-            {isProcessing ? "Memproses..." : "Generate"}
-          </Button>
-        </div>
+    const handleDownloadImage = useCallback((url: string) => {
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "generated-image.png";
+        link.click();
+    }, []);
 
-        {isProcessing && (
-          <div className="mt-4 text-center">
-            <p className="text-neutral-600">Memproses gambar...</p>
-          </div>
-        )}
+    const handleDeleteImage = useCallback(async (imageId: string) => {
+        if (!confirm("Apakah Anda yakin ingin menghapus gambar ini?")) return;
+        try {
+            await axios.delete(`/api/images/${imageId}`);
+            setHistoryImages((prev) => prev.filter((img) => img.id !== imageId));
+        } catch (error) {
+            console.error("Error deleting image:", error);
+            alert("Gagal menghapus gambar.");
+        }
+    }, []);
 
-        {generatedImages.length > 0 && (
-          <div className="mt-8">
-            <h2 className="mb-4 text-xl font-semibold">Hasil Generasi</h2>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {generatedImages.map((img, index) => (
-                <div
-                  key={index}
-                  className="relative h-48 overflow-hidden rounded-lg border"
-                >
-                  <Image
-                    src={img}
-                    alt={`Generated ${index + 1}`}
-                    fill
-                    className="object-cover"
-                  />
+    return (
+        <>
+            <main className="p-4">
+                <h1 className="text-2xl font-bold">Canvas Project</h1>
+                <p className="text-neutral-600">ID: {id}</p>
+
+                <div className="mt-4 flex flex-col gap-8 lg:flex-row">
+                    <div className="flex-1">
+                        <PaintApp ref={paintAppRef} onReset={handleReset} width={800} height={600} />
+
+                        <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-end">
+                            <div className="flex-1">
+                                <label htmlFor="prompt" className="block text-sm font-medium text-neutral-700">
+                                    Prompt
+                                </label>
+                                <input id="prompt" type="text" value={prompt} onChange={(e) => setPrompt(e.target.value)} className="mt-1 block w-full rounded-md border border-neutral-300 px-3 py-2 shadow-sm focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none" placeholder="Masukkan prompt untuk generate gambar" />
+                            </div>
+                            <Button onClick={handleGenerate} disabled={isProcessing} className="bg-purple-600 hover:bg-purple-700">
+                                {isProcessing ? "Memproses..." : "Generate"}
+                            </Button>
+                        </div>
+
+                        {isProcessing && (
+                            <div className="mt-4 text-center">
+                                <p className="text-neutral-600">Memproses gambar...</p>
+                            </div>
+                        )}
+
+                        {generatedImages.length > 0 && (
+                            <div className="mt-8">
+                                <h2 className="mb-4 text-xl font-semibold">Hasil Generasi Terbaru</h2>
+                                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                                    {generatedImages.map((img, index) => (
+                                        <div key={index} className="relative h-48 overflow-hidden rounded-lg border">
+                                            <Image src={img} alt={`Generated ${index + 1}`} fill className="object-cover" />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {historyImages.length > 0 && (
+                        <div className="w-full lg:w-80">
+                            <h2 className="mb-4 text-xl font-semibold">History Project</h2>
+                            <div className="grid grid-cols-1 gap-4">
+                                {historyImages.map((img) => (
+                                    <div key={img.id} className="group relative h-48 overflow-hidden rounded-lg border">
+                                        <Image src={img.url} alt={`History ${img.id}`} fill className="object-cover" />
+                                        <DropdownMenu>
+                                            <DropdownMenuTrigger asChild>
+                                                <Button variant="ghost" size="sm" className="absolute top-2 right-2 bg-white/80 opacity-0 transition-opacity group-hover:opacity-100 hover:bg-white">
+                                                    <MoreVertical className="h-4 w-4" />
+                                                </Button>
+                                            </DropdownMenuTrigger>
+                                            <DropdownMenuContent>
+                                                <DropdownMenuItem onClick={() => handleViewImage(img)}>Lihat</DropdownMenuItem>
+                                                <DropdownMenuItem onClick={() => handleDownloadImage(img.url)}>Download</DropdownMenuItem>
+                                                <DropdownMenuItem onClick={() => handleDeleteImage(img.id)} className="text-red-600">
+                                                    Hapus
+                                                </DropdownMenuItem>
+                                            </DropdownMenuContent>
+                                        </DropdownMenu>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                        <DialogContent className="max-w-4xl">
+                            <DialogHeader>
+                                <DialogTitle>Gambar</DialogTitle>
+                            </DialogHeader>
+                            {selectedImage && (
+                                <div className="relative h-96 w-full">
+                                    <Image src={selectedImage.url} alt={`Image ${selectedImage.id}`} fill className="object-contain" />
+                                </div>
+                            )}
+                        </DialogContent>
+                    </Dialog>
                 </div>
-              ))}
-            </div>
-          </div>
-        )}
-      </main>
-    </>
-  );
+            </main>
+        </>
+    );
 }
