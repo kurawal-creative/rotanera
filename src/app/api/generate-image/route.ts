@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
         const supabase = createStorageSupabaseClient();
         const bucketName = process.env.SUPABASE_STORAGE_BUCKET!;
         const fileName = `generated-${Date.now()}.png`;
-        const { data: uploadData, error: uploadError } = await supabase.storage.from(bucketName).upload(fileName, buffer, {
+        const { error: uploadError } = await supabase.storage.from(bucketName).upload(fileName, buffer, {
             contentType: "image/png",
         });
 

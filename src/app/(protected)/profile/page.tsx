@@ -8,7 +8,7 @@ import { useStatistics } from "@/hooks/use-statistics";
 import { useTheme } from "@/hooks/use-theme";
 import { User, Mail, Calendar, Settings, Edit2, Camera, Shield, Bell, Palette } from "lucide-react";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -20,7 +20,7 @@ import { id as localeId } from "date-fns/locale";
 
 export default function ProfilePage() {
     const { user, loading } = useAuth();
-    const { statistics, loading: statsLoading } = useStatistics();
+    const { statistics } = useStatistics();
     const { isDark, setTheme } = useTheme();
     const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
     const [editedName, setEditedName] = useState("");

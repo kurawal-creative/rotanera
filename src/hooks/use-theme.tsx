@@ -5,47 +5,29 @@ import { useEffect, useState } from "react";
 type Theme = "light" | "dark";
 
 export function useTheme() {
-    const [theme, setTheme] = useState<Theme>("light");
-    const [mounted, setMounted] = useState(false);
+    // Ambil theme langsung dari localStorage untuk initial state
+    const [theme, setTheme] = useState<Theme>(() => {
+        if (typeof window === "undefined") return "light";
+        const saved = localStorage.getItem("darkMode");
+        return saved === "true" ? "dark" : "light";
+    });
 
-    // Initialize theme from localStorage on mount
+    // Terapkan class ke DOM setelah render pertama
     useEffect(() => {
-        setMounted(true);
-        const savedTheme = localStorage.getItem("darkMode");
-        const isDark = savedTheme === "true";
-        setTheme(isDark ? "dark" : "light");
-    }, []);
+        document.documentElement.classList.toggle("dark", theme === "dark");
+    }, [theme]);
 
-    // Toggle theme function
-    const toggleTheme = () => {
-        const newTheme = theme === "dark" ? "light" : "dark";
-        setTheme(newTheme);
-        localStorage.setItem("darkMode", (newTheme === "dark").toString());
-
-        if (newTheme === "dark") {
-            document.documentElement.classList.add("dark");
-        } else {
-            document.documentElement.classList.remove("dark");
-        }
-    };
-
-    // Set theme directly
-    const setThemeMode = (mode: Theme) => {
+    const applyTheme = (mode: Theme) => {
         setTheme(mode);
-        localStorage.setItem("darkMode", (mode === "dark").toString());
-
-        if (mode === "dark") {
-            document.documentElement.classList.add("dark");
-        } else {
-            document.documentElement.classList.remove("dark");
-        }
+        localStorage.setItem("darkMode", mode === "dark" ? "true" : "false");
     };
+
+    const toggleTheme = () => applyTheme(theme === "dark" ? "light" : "dark");
 
     return {
         theme,
         isDark: theme === "dark",
         toggleTheme,
-        setTheme: setThemeMode,
-        mounted, // Useful to prevent hydration mismatch
+        setTheme: applyTheme,
     };
 }
