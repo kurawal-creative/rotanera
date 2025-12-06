@@ -19,9 +19,11 @@ export type Project = {
 type ProjectsStore = {
     projects: Project[];
     setProjects: (projects: Project[]) => void;
+    deleteProject: (id: string) => void;
 };
 
 export const useProjects = create<ProjectsStore>((set) => ({
     projects: [],
     setProjects: (projects) => set({ projects }),
+    deleteProject: (id) => set((state) => ({ projects: state.projects.filter((p) => p.id !== id) })),
 }));

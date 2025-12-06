@@ -6,7 +6,7 @@ import PinterestMasonry from "@/components/galeri-page/pinterest-masonry";
 import { useGalleries } from "@/store/galeriesStore";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Search, SlidersHorizontal, Armchair, Table2, Sofa, Archive, Trees, Sparkles, Layers, Palette, TrendingUp, Clock, Eye } from "lucide-react";
+import { Search, SlidersHorizontal, Armchair, Table2, Sofa, Archive, Trees, Sparkles, Layers, Palette, TrendingUp, Clock, Download } from "lucide-react";
 import { useState } from "react";
 import { LucideIcon } from "lucide-react";
 
@@ -28,7 +28,7 @@ const categories: Array<{
 const sortOptions = [
     { id: "latest", label: "Terbaru", icon: Clock },
     { id: "popular", label: "Terpopuler", icon: TrendingUp },
-    { id: "views", label: "Paling Dilihat", icon: Eye },
+    { id: "downloads", label: "Terbanyak Diunduh", icon: Download },
 ];
 
 export default function GaleriPage() {
@@ -104,7 +104,7 @@ export default function GaleriPage() {
                                             return (
                                                 <button
                                                     key={option.id}
-                                                    onClick={() => setSortBy(option.id as "latest" | "popular" | "views")}
+                                                    onClick={() => setSortBy(option.id as "latest" | "popular" | "downloads")}
                                                     className={`flex flex-1 items-center justify-center gap-2 rounded-lg border px-3 py-2 text-xs font-medium transition ${sortBy === option.id ? "border-purple-500 bg-purple-50 text-purple-700 dark:border-purple-500 dark:bg-purple-950/30 dark:text-purple-400" : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:border-neutral-600"}`}
                                                 >
                                                     <IconComponent size={14} />
