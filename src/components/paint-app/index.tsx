@@ -129,7 +129,7 @@ export const PaintApp = forwardRef<PaintAppRef, PaintAppProps>(function PaintApp
     );
 
     return (
-        <div ref={containerRef} className={`mx-auto w-full p-2 sm:p-4 ${isFullscreen ? "flex h-screen flex-col bg-neutral-100 dark:bg-neutral-900" : "max-w-4xl"}`}>
+        <div ref={containerRef} className={`mx-auto w-full ${isFullscreen ? "flex h-screen flex-col bg-neutral-100 dark:bg-neutral-900" : "max-w-4xl"}`}>
             <div className={`overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-lg dark:border-neutral-700 dark:bg-neutral-900 ${isFullscreen ? "flex flex-1 flex-col" : ""}`}>
                 <div className="relative">
                     <Toolbar
@@ -178,11 +178,11 @@ export const PaintApp = forwardRef<PaintAppRef, PaintAppProps>(function PaintApp
                     />
                 </div>
                 <Upload inputRef={uploadInputRef} onImageUpload={handleImageUpload} />
+                <p className="my-2 text-center text-xs text-neutral-600 dark:text-neutral-400">
+                    Export: {CANVAS_RATIOS[canvasRatio].exportWidth}x{CANVAS_RATIOS[canvasRatio].exportHeight}px | Ctrl+Z Undo, Ctrl+Y Redo
+                    {floatingImage && " | Enter: Terapkan, Esc: Batal"}
+                </p>
             </div>
-            <p className="mt-2 text-center text-xs text-neutral-600 dark:text-neutral-400">
-                Export: {CANVAS_RATIOS[canvasRatio].exportWidth}x{CANVAS_RATIOS[canvasRatio].exportHeight}px | Ctrl+Z Undo, Ctrl+Y Redo
-                {floatingImage && " | Enter: Terapkan, Esc: Batal"}
-            </p>
         </div>
     );
 });

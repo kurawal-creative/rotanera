@@ -1,13 +1,35 @@
 "use client";
 
 import { useGalleries } from "@/store/galeriesStore";
-import { Heart, Eye, Download, User, Loader2 } from "lucide-react";
+import { Heart, Download, User, Loader2 } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
 export default function PinterestMasonry() {
-    const { filteredImages, toggleLike, loading } = useGalleries();
+    const { filteredImages, toggleLike, trackDownload, loading } = useGalleries();
     const [hoveredId, setHoveredId] = useState<string | null>(null);
+
+    const handleDownload = async (imageUrl: string, imageId: string, title: string) => {
+        try {
+            // Track the download
+            await trackDownload(imageId);
+
+            // Download the image
+            const response = await fetch(imageUrl);
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = `${title.replace(/[^a-z0-9]/gi, "_").toLowerCase()}.png`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error("Error downloading image:", error);
+            alert("Gagal mendownload gambar");
+        }
+    };
 
     if (loading) {
         return (
@@ -44,7 +66,7 @@ export default function PinterestMasonry() {
                                 <button onClick={() => toggleLike(image.id)} className="rounded-full bg-white/90 p-2 shadow-lg backdrop-blur-sm transition hover:scale-110 hover:bg-white">
                                     <Heart size={18} className={image.isLiked ? "fill-red-500 text-red-500" : "text-neutral-600"} />
                                 </button>
-                                <button className="rounded-full bg-white/90 p-2 shadow-lg backdrop-blur-sm transition hover:scale-110 hover:bg-white">
+                                <button onClick={() => handleDownload(image.imageUrl, image.id, image.title)} className="rounded-full bg-white/90 p-2 shadow-lg backdrop-blur-sm transition hover:scale-110 hover:bg-white">
                                     <Download size={18} className="text-neutral-600" />
                                 </button>
                             </div>
@@ -68,8 +90,8 @@ export default function PinterestMasonry() {
                                             {image.likes}
                                         </span>
                                         <span className="flex items-center gap-1">
-                                            <Eye size={12} />
-                                            {image.views}
+                                            <Download size={12} />
+                                            {image.downloads}
                                         </span>
                                     </div>
                                 </div>

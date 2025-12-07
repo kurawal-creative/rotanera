@@ -7,9 +7,10 @@ import SearchBar from "@/components/search-project";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import axios from "axios";
-import { ArrowRight, Grid2x2, History, List } from "lucide-react";
+import { ArrowRight, Grid2x2, History, List, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useProjects } from "@/store/projectsStore";
+import Link from "next/link";
 
 const placeholders = ["Buatkan desain kursi rotan minimalis", "Buat katalog produk rotan modern 2025", "Buat interior ruang tamu dengan set sofa rotan", "Buat desain meja makan rotan premium", "Buatkan etalase online untuk toko kerajinan rotan"];
 
@@ -17,7 +18,7 @@ export default function DashboardPage() {
     const [placeholder, setPlaceholder] = useState("");
     const [view, setView] = useState<"grid" | "list">("grid");
     const [loading, setLoading] = useState(true);
-    const { setProjects } = useProjects();
+    const { projects, setProjects } = useProjects();
 
     useEffect(() => {
         async function main() {
@@ -109,6 +110,22 @@ export default function DashboardPage() {
                                 <div className="text-center">
                                     <div className="mx-auto h-8 w-8 animate-spin rounded-full border-4 border-purple-600 border-t-transparent"></div>
                                     <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">Memuat projects...</p>
+                                </div>
+                            </div>
+                        ) : projects.length === 0 ? (
+                            <div className="flex min-h-[400px] items-center justify-center py-16">
+                                <div className="text-center">
+                                    <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900/20">
+                                        <Sparkles className="h-10 w-10 text-purple-600 dark:text-purple-400" />
+                                    </div>
+                                    <h3 className="mb-2 text-xl font-semibold text-neutral-800 dark:text-neutral-200">Kamu belum punya proyek nih</h3>
+                                    <p className="mb-6 text-sm text-neutral-600 dark:text-neutral-400">Yuk buat proyek pertamamu dan wujudkan ide kreatifmu!</p>
+                                    <div className="flex items-center justify-center gap-2">
+                                        <Link href={"/project-baru"} className="bg-purp hover:bg-purp-darker flex items-center gap-2 rounded-2xl px-4 py-2 text-white transition-colors">
+                                            <Sparkles className="h-4 w-4" />
+                                            Buat Proyek Sekarang
+                                        </Link>
+                                    </div>
                                 </div>
                             </div>
                         ) : view === "grid" ? (

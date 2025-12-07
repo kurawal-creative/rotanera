@@ -12,6 +12,7 @@ export type GalleryImage = {
     tags: string[];
     likes: number;
     views: number;
+    downloads: number;
     author: {
         name: string;
         avatar?: string;
@@ -28,11 +29,12 @@ type GalleriesStore = {
     loading: boolean;
     selectedCategory: GalleryCategory;
     searchQuery: string;
-    sortBy: "latest" | "popular" | "views";
+    sortBy: "latest" | "popular" | "views" | "downloads";
     setSelectedCategory: (category: GalleryCategory) => void;
     setSearchQuery: (query: string) => void;
-    setSortBy: (sort: "latest" | "popular" | "views") => void;
-    toggleLike: (id: string) => void;
+    setSortBy: (sort: "latest" | "popular" | "views" | "downloads") => void;
+    toggleLike: (id: string) => Promise<void>;
+    trackDownload: (id: string) => Promise<void>;
     applyFilters: () => void;
     fetchImages: () => Promise<void>;
 };
@@ -73,14 +75,21 @@ export const useGalleries = create<GalleriesStore>((set, get) => ({
         get().applyFilters();
     },
 
-    toggleLike: (id) => {
+    toggleLike: async (id) => {
+        // Optimistically update UI
+        const currentImage = get().images.find((img) => img.id === id);
+        if (!currentImage) return;
+
+        const wasLiked = currentImage.isLiked;
+
+        // Optimistic update
         set((state) => ({
             images: state.images.map((img) =>
                 img.id === id
                     ? {
                           ...img,
-                          isLiked: !img.isLiked,
-                          likes: img.isLiked ? img.likes - 1 : img.likes + 1,
+                          isLiked: !wasLiked,
+                          likes: wasLiked ? img.likes - 1 : img.likes + 1,
                       }
                     : img,
             ),
@@ -88,32 +97,84 @@ export const useGalleries = create<GalleriesStore>((set, get) => ({
                 img.id === id
                     ? {
                           ...img,
-                          isLiked: !img.isLiked,
-                          likes: img.isLiked ? img.likes - 1 : img.likes + 1,
+                          isLiked: !wasLiked,
+                          likes: wasLiked ? img.likes - 1 : img.likes + 1,
                       }
                     : img,
             ),
         }));
+
+        try {
+            await axios.post(`/api/gallery/${id}/favorite`);
+        } catch (error) {
+            console.error("Error toggling like:", error);
+            // Revert on error
+            set((state) => ({
+                images: state.images.map((img) =>
+                    img.id === id
+                        ? {
+                              ...img,
+                              isLiked: wasLiked,
+                              likes: wasLiked ? img.likes + 1 : img.likes - 1,
+                          }
+                        : img,
+                ),
+                filteredImages: state.filteredImages.map((img) =>
+                    img.id === id
+                        ? {
+                              ...img,
+                              isLiked: wasLiked,
+                              likes: wasLiked ? img.likes + 1 : img.likes - 1,
+                          }
+                        : img,
+                ),
+            }));
+        }
+    },
+
+    trackDownload: async (id) => {
+        try {
+            await axios.post(`/api/gallery/${id}/download`);
+
+            set((state) => ({
+                images: state.images.map((img) =>
+                    img.id === id
+                        ? {
+                              ...img,
+                              downloads: img.downloads + 1,
+                          }
+                        : img,
+                ),
+                filteredImages: state.filteredImages.map((img) =>
+                    img.id === id
+                        ? {
+                              ...img,
+                              downloads: img.downloads + 1,
+                          }
+                        : img,
+                ),
+            }));
+        } catch (error) {
+            console.error("Error tracking download:", error);
+        }
     },
 
     applyFilters: () => {
         const { images, searchQuery, sortBy } = get();
 
-        // Filter by category (for now, all are "all")
         let filtered = images;
 
-        // Filter by search query
         if (searchQuery) {
             filtered = filtered.filter((img) => img.title.toLowerCase().includes(searchQuery.toLowerCase()) || img.description.toLowerCase().includes(searchQuery.toLowerCase()));
         }
 
-        // Sort
         if (sortBy === "popular") {
             filtered.sort((a, b) => b.likes - a.likes);
         } else if (sortBy === "views") {
             filtered.sort((a, b) => b.views - a.views);
+        } else if (sortBy === "downloads") {
+            filtered.sort((a, b) => b.downloads - a.downloads);
         } else {
-            // latest
             filtered.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
         }
 

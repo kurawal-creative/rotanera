@@ -64,7 +64,7 @@ export function Toolbar({ activeTool, onToolChange, color, onColorChange, lineWi
             {/* Color Picker */}
             <div className="flex items-center gap-1 sm:gap-2">
                 <label className="hidden text-xs font-medium text-purple-700 sm:text-sm md:block dark:text-neutral-300">Warna:</label>
-                <input type="color" value={color} onChange={(e) => onColorChange(e.target.value)} disabled={disabled} className="h-7 w-7 cursor-pointer rounded-lg border-2 border-purple-200 shadow-sm sm:h-8 sm:w-8 dark:border-neutral-600 dark:bg-neutral-900" title="Pilih warna" />
+                <input type="color" value={color} onChange={(e) => onColorChange(e.target.value)} disabled={disabled} className="h-7 w-7 cursor-pointer rounded-sm border-2 border-purple-200 shadow-sm sm:h-8 sm:w-8 dark:border-neutral-600 dark:bg-neutral-900" title="Pilih warna" />
             </div>
 
             {/* Line Width */}

@@ -1,45 +1,60 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { UserStatistics } from "@/types/statistics";
-import { dummyUserStatistics } from "@/store/statisticStore";
+import { useAuth } from "@/hooks/use-auth";
+import axios from "axios";
 
 interface UseStatisticsReturn {
-  statistics: UserStatistics | null;
-  loading: boolean;
-  error: string | null;
-  refetch: () => void;
+    statistics: UserStatistics | null;
+    loading: boolean;
+    error: string | null;
+    refetch: () => void;
 }
 
 /**
- * Hook to fetch user statistics (using dummy data for now)
+ * Hook to fetch user statistics from API
  *
  * @example
  * const { statistics, loading } = useStatistics();
  */
 export function useStatistics(): UseStatisticsReturn {
-  const [statistics, setStatistics] = useState<UserStatistics | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error] = useState<string | null>(null);
+    const [statistics, setStatistics] = useState<UserStatistics | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    const { user, loading: authLoading } = useAuth();
 
-  useEffect(() => {
-    // Simulate API loading delay
-    const timer = setTimeout(() => {
-      setStatistics(dummyUserStatistics);
-      setLoading(false);
-    }, 500);
+    const fetchStatistics = useCallback(async () => {
+        if (!user) {
+            setLoading(false);
+            return;
+        }
 
-    // Cleanup timer on unmount
-    return () => clearTimeout(timer);
-  }, []);
+        try {
+            setLoading(true);
+            setError(null);
+            const response = await axios.get("/api/user/statistics");
+            setStatistics(response.data);
+        } catch (err) {
+            console.error("Error fetching statistics:", err);
+            setError("Failed to load statistics");
+        } finally {
+            setLoading(false);
+        }
+    }, [user]);
 
-  const refetch = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setStatistics(dummyUserStatistics);
-      setLoading(false);
-    }, 500);
-  };
+    useEffect(() => {
+        // Wait for auth to finish loading
+        if (authLoading) {
+            return;
+        }
 
-  return { statistics, loading, error, refetch };
+        fetchStatistics();
+    }, [fetchStatistics, authLoading]);
+
+    const refetch = () => {
+        fetchStatistics();
+    };
+
+    return { statistics, loading, error, refetch };
 }
