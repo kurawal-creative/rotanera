@@ -3,6 +3,7 @@
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { useAuth } from "@/hooks/use-auth";
+import RotaneraBot from "@/components/rotanera-bot";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     const { loading } = useAuth();
@@ -19,6 +20,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <SidebarProvider>
             <AppSidebar />
             {children}
+            <RotaneraBot />
         </SidebarProvider>
     );
 }
