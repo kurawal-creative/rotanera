@@ -2,7 +2,7 @@
 
 <img width="736" height="174" alt="Frame 5" src="https://github.com/user-attachments/assets/0ee38a41-3c11-488b-a275-6265a0d16a8d" />
 
-[🌐 Coba Demo Aplikasi](https://rotanera.vercel.app/) | [📽️ Video Demo](https://github.com/username/repo/issues)
+[🌐 Coba Demo Aplikasi](https://rotanera.vercel.app/) | [📽️ Ja6i Inmed](kue)
 
 <details>
   <summary><b>📋 Daftar Isi (Klik untuk Membuka)</b></summary>
@@ -64,31 +64,33 @@ Ubah sketsa tangan sederhana menjadi gambar produk yang fotorealistik langsung d
          <img width="686" height="357" alt="image" src="https://github.com/user-attachments/assets/d69d84e8-5832-49dd-98ed-5527db798305" />
   
     4.  *(Opsional)* Tambahkan detail teks di kolom **Prompt** (contoh: *"Kursi rotan minimalis, kaki besi hitam"*).
-    5.  Klik **Generate**. AI akan memproses sketsamu menjadi gambar visual berkualitas tinggi.
          <img width="1055" height="557" alt="image" src="https://github.com/user-attachments/assets/310046e7-e5ba-4b8c-bbf9-3f22313deec4" />
-
+         
+    5.  Klik **Generate**. AI akan memproses sketsamu menjadi gambar visual berkualitas tinggi.
+         <img width="1920" height="1080" alt="Screenshot 2025-12-07 225455" src="https://github.com/user-attachments/assets/6121fe86-cb95-4536-a8e5-af1f8085b558" />
+ 
 
 ### 3. 📸 Improve Design: Sulap Foto HP Jadi Foto Studio
 Fitur andalan untuk UMKM! Tingkatkan kualitas foto produk mentah agar siap tampil di katalog atau marketplace.
 
 * **Cara Pakai:**
     1.  Buka fitur **Improve Design**.
-           <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/92d233bf-02b9-4af3-8673-72108cdeb420" />
+        <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/92d233bf-02b9-4af3-8673-72108cdeb420" />
 
     2.  Upload foto produk rotanmu (bahkan foto dari kamera HP dengan latar berantakan pun bisa).
-           <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/581be870-b2b4-437f-8a97-8eccad105a37" />
+        <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/581be870-b2b4-437f-8a97-8eccad105a37" />
 
     3.  Biarkan AI memproses pencahayaan, ketajaman, dan mengganti latar belakang menjadi lebih estetik & profesional.
-    4.  Download hasilnya dan siap diposting di media sosial.
+        <img width="1920" height="1080" alt="Screenshot 2025-12-07 225650" src="https://github.com/user-attachments/assets/d90ff114-de7d-4605-b354-bda64c1a2456" />
+  
+    5.  Download hasilnya dan siap diposting di media sosial.
 
 ### 4. 🌍 Galeri Inspirasi
 Kehabisan ide? Lihat apa yang dibuat oleh kreator lain.
 
 * **Cara Pakai:**
-    1.  Buka tab **Galeri**.
-        <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/f132ab35-d270-430b-82dd-1d4f17136c6c" />
-
-    2.  Jelajahi ribuan desain produk rotan hasil kreasi komunitas Rotanera.
+    1.  Buka tab **Galeri**, desain produk rotan hasil kreasi komunitas Rotanera.
+        ![Screenshot_7-12-2025_10119_localhost2](https://github.com/user-attachments/assets/0c0e2b26-8b8d-46b7-8aaf-f0f441905df8)
     3.  Amati prompt atau gaya desain yang digunakan sebagai referensi karyamu selanjutnya.
 
 ---
