@@ -8,9 +8,6 @@ RUN bun install --frozen-lockfile
 
 COPY . .
 
-ENV DIRECT_URL="file:placeholder"
-ENV PRISMA_CLIENT_ENGINE_TYPE="wasm"
-
 RUN bun run build
 
 EXPOSE 3000
