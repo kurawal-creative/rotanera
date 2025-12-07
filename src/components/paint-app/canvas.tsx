@@ -243,7 +243,7 @@ export const Canvas = forwardRef<CanvasRef, CanvasProps>(function Canvas({ width
     const screenCoords = getScreenCoords();
 
     return (
-        <div ref={containerRef} className={`relative flex w-full justify-center bg-neutral-100 p-2 sm:p-4 dark:bg-neutral-900/50 ${isFullscreen ? "h-full items-center" : ""}`}>
+        <div ref={containerRef} className={`relative flex w-full justify-center bg-neutral-100 dark:bg-neutral-900/50 ${isFullscreen ? "h-full items-center" : ""}`}>
             <canvas
                 ref={canvasRef}
                 width={width}
@@ -253,7 +253,7 @@ export const Canvas = forwardRef<CanvasRef, CanvasProps>(function Canvas({ width
                     maxWidth: "100%",
                     maxHeight: isFullscreen ? "calc(100vh - 120px)" : "auto",
                 }}
-                className={`rounded border border-neutral-300 bg-white shadow-sm dark:border-neutral-600 ${floatingImage ? "cursor-default" : "cursor-crosshair"}`}
+                className={`rounded border bg-white ${floatingImage ? "cursor-default" : "cursor-crosshair"}`}
                 onMouseDown={startDrawing}
                 onMouseMove={draw}
                 onMouseUp={stopDrawing}

@@ -13,6 +13,7 @@ import { Sparkles, Clock, Download, Loader2, Wand2, Image as ImageIcon } from "l
 
 export default function CanvasPage() {
     const { id } = useParams();
+    const [name, setName] = useState<string | null>(null);
     const paintAppRef = useRef<PaintAppRef>(null);
     const [generatedImages, setGeneratedImages] = useState<Array<{ url: string; createdAt: string }>>([]);
     const [isProcessing, setIsProcessing] = useState(false);
@@ -22,12 +23,14 @@ export default function CanvasPage() {
         const fetchProjectImages = async () => {
             try {
                 const response = await axios.get(`/api/project/${id}`);
-                const images = response.data.project.images
+                const projectName = response.data.project.name ?? null;
+                const images = (response.data.project.images ?? [])
                     .map((img: { url: string; createdAt: string }) => ({
                         url: img.url,
                         createdAt: img.createdAt,
                     }))
                     .sort((a: { createdAt: string }, b: { createdAt: string }) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+                setName(projectName);
                 setGeneratedImages(images);
             } catch (error) {
                 console.error("Error fetching project images:", error);
@@ -81,7 +84,7 @@ export default function CanvasPage() {
     return (
         <>
             <main className="relative w-full">
-                <Topbar breadcrumb={[{ label: "Canvas", href: "/canvas" }, { label: `Project ${id}` }]} />
+                <Topbar breadcrumb={[{ label: "Canvas", href: "/canvas" }, { label: `Project ${name}` }]} />
 
                 {/* Gradient background */}
                 <div className="pointer-events-none absolute inset-x-0 top-13 -z-10 h-32 bg-linear-to-b from-purple-50/50 via-transparent to-transparent dark:from-purple-950/20" />
@@ -92,7 +95,7 @@ export default function CanvasPage() {
                         <div>
                             <h1 className="text-2xl font-semibold text-neutral-900 dark:text-neutral-100">Canvas Studio</h1>
                             <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
-                                Project ID: <span className="font-mono text-purple-600 dark:text-purple-400">{id}</span>
+                                Project: <span className="font-mono font-medium text-purple-600 dark:text-purple-400">{name}</span>
                             </p>
                         </div>
                         <div className="flex items-center gap-2">
@@ -106,14 +109,14 @@ export default function CanvasPage() {
                     {/* Main Layout - Canvas Left, Generations Right */}
                     <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
                         {/* Left Column - Canvas and AI Panel */}
-                        <div className="space-y-6 lg:col-span-2">
+                        <div className="lg:col-span-2">
                             {/* Canvas */}
                             <div className="overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm dark:border-neutral-700 dark:bg-neutral-800">
                                 <PaintApp ref={paintAppRef} onReset={handleReset} width={800} height={600} />
                             </div>
 
                             {/* AI Generation Panel */}
-                            <div className="rounded-2xl border border-purple-200 bg-linear-to-br from-purple-50 to-white p-6 shadow-sm dark:border-purple-900/50 dark:from-purple-950/20 dark:to-neutral-800">
+                            <div className="mt-4 rounded-2xl border border-purple-200 bg-linear-to-br from-purple-50 to-white p-6 shadow-sm dark:border-purple-900/50 dark:from-purple-950/20 dark:to-neutral-800">
                                 <div className="mb-4 flex items-center gap-3">
                                     <div className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-600">
                                         <Wand2 className="h-5 w-5 text-white" />

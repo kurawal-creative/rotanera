@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import blobGradient from "@/assets/image/blob-gradient.jpg";
+import safariImage from "@/assets/image/ss2.png";
 import { ArrowRight } from "lucide-react";
 
 const HeroSection = () => {
