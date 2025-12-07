@@ -28,7 +28,7 @@ const HeroSection = () => {
 
                     <div className="flex items-center justify-center gap-4 lg:justify-start">
                         <Button className="group bg-purp hover:bg-purp-darker w-full rounded-lg border px-4 py-2 font-semibold text-white backdrop-blur-md transition-all duration-300 ease-out active:scale-[0.97] md:w-fit lg:rounded-full">
-                            <Link href="/login" className="flex items-center gap-2">
+                            <Link href="/project" className="flex items-center gap-2">
                                 Coba Gratis
                                 <ArrowRight size={16} className="transition-transform duration-300 ease-out group-hover:translate-x-1" />
                             </Link>

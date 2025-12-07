@@ -129,7 +129,7 @@ export const PaintApp = forwardRef<PaintAppRef, PaintAppProps>(function PaintApp
     );
 
     return (
-        <div ref={containerRef} className={`mx-auto w-full ${isFullscreen ? "flex h-screen flex-col bg-neutral-100 dark:bg-neutral-900" : "max-w-4xl"}`}>
+        <div ref={containerRef} className={`mx-auto w-full ${isFullscreen ? "flex h-screen flex-col bg-neutral-100 dark:bg-neutral-900" : ""}`}>
             <div className={`overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-lg dark:border-neutral-700 dark:bg-neutral-900 ${isFullscreen ? "flex flex-1 flex-col" : ""}`}>
                 <div className="relative">
                     <Toolbar

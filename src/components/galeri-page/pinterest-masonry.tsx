@@ -79,7 +79,9 @@ export default function PinterestMasonry() {
                                 {/* Author Info */}
                                 <div className="mt-3 flex items-center justify-between">
                                     <div className="flex items-center gap-2">
-                                        <div className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-white/20 backdrop-blur-sm">{image.author.avatar ? <Image src={image.author.avatar} alt={image.author.name} width={32} height={32} className="h-full w-full object-cover" /> : <User size={14} className="text-white" />}</div>
+                                        <div className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-white/20 backdrop-blur-sm">
+                                            {image.author.avatar ? <Image src={image.author.avatar} alt={image.author.name} width={32} height={32} className="h-full w-full object-cover" /> : <Image src={`https://ui-avatars.com/api/?name=${encodeURIComponent(image.author.name)}&background=7c3aed&color=ffffff&size=32`} alt={image.author.name} width={32} height={32} className="h-full w-full object-cover" />}
+                                        </div>
                                         <span className="text-xs font-medium text-white">{image.author.name}</span>
                                     </div>
                                     <div className="flex items-center gap-3 text-xs text-white/90">
