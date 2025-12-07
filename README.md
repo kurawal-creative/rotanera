@@ -4,7 +4,28 @@
 
 [🌐 Coba Demo Aplikasi](https://rotanera.vercel.app/) | [📽️ Video Demo](https://github.com/username/repo/issues)
 
+<details>
+  <summary><b>📋 Daftar Isi (Klik untuk Membuka)</b></summary>
+  <ol>
+    <li><a href="#-tentang-rotanera">Tentang Rotanera</a></li>
+    <li>
+      <a href="#-panduan--fitur-utama">Panduan & Fitur Utama</a>
+      <ul>
+        <li><a href="#1-📂-buat-proyek-langkah-awal">Buat Proyek</a></li>
+        <li><a href="#2-🎨-ai-canvas-dari-coretan-kasar-menjadi-nyata">AI Canvas</a></li>
+        <li><a href="#3-📸-improve-design-sulap-foto-hp-jadi-foto-studio">Improve Design</a></li>
+        <li><a href="#4-🌍-galeri-inspirasi">Galeri Inspirasi</a></li>
+      </ul>
+    </li>
+    <li><a href="#-teknologi-yang-digunakan">Teknologi</a></li>
+    <li><a href="#-cara-menjalankan-di-lokal-installation">Instalasi Lokal</a></li>
+    <li><a href="#-kontribusi">Kontribusi</a></li>
+  </ol>
+</details>
+
 ---
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/7fd3f729-0e3e-4125-bc84-3c25ceb307eb" />
 
 ## 👋 Tentang Rotanera
 
@@ -16,39 +37,57 @@ Tidak perlu keahlian menggambar profesional atau menyewa fotografer mahal—Rota
 
 ## 📖 Panduan & Fitur Utama
 
-Berikut adalah cara menggunakan fitur-fitur unggulan di Rotanera untuk memaksimalkan kreativitasmu:
+Berikut adalah alur penggunaan fitur di Rotanera untuk memaksimalkan kreativitasmu:
 
-### 1. 🎨 AI Canvas: Dari Coretan Kasar Menjadi Nyata
-Fitur ini mengubah sketsa tangan sederhana menjadi gambar produk yang fotorealistik.
+### 1. 📂 Buat Proyek (Langkah Awal)
+Fitur **Canvas** berada di dalam Proyek. Jadi, langkah pertama bagi pengguna baru adalah menyiapkan ruang kerjanya.
 
 * **Cara Pakai:**
-    1.  Masuk ke menu **Canvas/Buat Desain**.
-    2.  Gunakan alat gambar (brush/pencil) untuk membuat sketsa kasar bentuk produk (misal: kursi, lampu, tas).
-    3.  *(Opsional)* Tambahkan detail teks di kolom **Prompt** (contoh: *"Kursi rotan minimalis, kaki besi hitam"*).
-    4.  Klik **Generate**. AI akan memproses sketsamu menjadi gambar visual berkualitas tinggi dalam hitungan detik.
+    1.  Setelah Login/Registrasi, kamu akan diarahkan ke dashboard.
+        <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/d1c917be-2e7c-40fb-aace-ed70afdf78c2" />
+        
+    2.  Buat **Proyek Baru** (misal: "Koleksi Kursi Teras").
+        <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/a602093b-0a23-40dc-97bf-f88d2886549c" />
 
-### 2. 📸 Improve Design: Sulap Foto HP Jadi Foto Studio
+    3.  Masuk ke dalam folder proyek tersebut untuk mulai mengakses fitur desain.
+        <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/f8ebfcfe-d88a-42fb-b5da-6d49673f1050" />
+
+### 2. 🎨 AI Canvas: Dari Coretan Kasar Menjadi Nyata
+Ubah sketsa tangan sederhana menjadi gambar produk yang fotorealistik langsung di dalam proyekmu.
+
+* **Cara Pakai:**
+    1.  Buka salah satu **Proyek** yang sudah kamu buat.
+    2.  Pilih menu **Canvas/Buat Desain**.
+        <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/48bd37cf-a830-48c7-9fdf-a44b3e00c790" />
+
+    3.  Gunakan alat gambar (brush/pencil) untuk membuat sketsa kasar.
+         <img width="686" height="357" alt="image" src="https://github.com/user-attachments/assets/d69d84e8-5832-49dd-98ed-5527db798305" />
+  
+    4.  *(Opsional)* Tambahkan detail teks di kolom **Prompt** (contoh: *"Kursi rotan minimalis, kaki besi hitam"*).
+    5.  Klik **Generate**. AI akan memproses sketsamu menjadi gambar visual berkualitas tinggi.
+         <img width="1055" height="557" alt="image" src="https://github.com/user-attachments/assets/310046e7-e5ba-4b8c-bbf9-3f22313deec4" />
+
+
+### 3. 📸 Improve Design: Sulap Foto HP Jadi Foto Studio
 Fitur andalan untuk UMKM! Tingkatkan kualitas foto produk mentah agar siap tampil di katalog atau marketplace.
 
 * **Cara Pakai:**
     1.  Buka fitur **Improve Design**.
+           <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/92d233bf-02b9-4af3-8673-72108cdeb420" />
+
     2.  Upload foto produk rotanmu (bahkan foto dari kamera HP dengan latar berantakan pun bisa).
+           <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/581be870-b2b4-437f-8a97-8eccad105a37" />
+
     3.  Biarkan AI memproses pencahayaan, ketajaman, dan mengganti latar belakang menjadi lebih estetik & profesional.
     4.  Download hasilnya dan siap diposting di media sosial.
-
-### 3. 📂 Project
-Agar alur kerjamu tetap rapi dan terorganisir.
-
-* **Cara Pakai:**
-    1.  Sebelum mulai mendesain, buat **Folder Proyek** baru di dashboard.
-    2.  Beri nama sesuai koleksi atau pesanan klien.
-    3.  Semua hasil generate dan sketsa akan tersimpan otomatis di dalam folder tersebut.
 
 ### 4. 🌍 Galeri Inspirasi
 Kehabisan ide? Lihat apa yang dibuat oleh kreator lain.
 
 * **Cara Pakai:**
     1.  Buka tab **Galeri**.
+        <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/f132ab35-d270-430b-82dd-1d4f17136c6c" />
+
     2.  Jelajahi ribuan desain produk rotan hasil kreasi komunitas Rotanera.
     3.  Amati prompt atau gaya desain yang digunakan sebagai referensi karyamu selanjutnya.
 
@@ -117,5 +156,6 @@ Kami sangat terbuka untuk kontribusi! Jika kamu punya ide fitur baru atau ingin 
 ---
 
 <p align="center">
-  Dibuat dengan ❤️ untuk Memajukan Industri Rotan Indonesia
+  Dibuat dengan ❤️ oleh <b>jengl0t</b> untuk Memajukan Industri Rotan Indonesia
 </p>
+````
