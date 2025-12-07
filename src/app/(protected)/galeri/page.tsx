@@ -52,7 +52,7 @@ export default function GaleriPage() {
                     {/* Header */}
                     <div className="mb-6">
                         <h1 className="text-2xl font-semibold text-neutral-900 dark:text-neutral-100">Galeri Furniture Rotan</h1>
-                        <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">{loading ? "Memuat galeri..." : `Jelajahi ${filteredImages.length} inspirasi desain furniture rotan dari komunitas`}</p>
+                        <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">{loading ? "Memuat galeri..." : `Jelajahi inspirasi desain furniture rotan dari komunitas`}</p>
                     </div>
 
                     {/* Search and Filters */}
