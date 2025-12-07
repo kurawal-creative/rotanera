@@ -3,6 +3,8 @@ import { Button } from "../ui/button";
 import { Safari } from "../ui/safari";
 import Link from "next/link";
 
+import imageGaleri from "@/assets/image/galeri-rotan.png"
+
 const CallToAction = () => {
     return (
         <section className="mx-auto w-full max-w-7xl px-4 py-20">
@@ -44,7 +46,7 @@ const CallToAction = () => {
                     {/* Right */}
                     <div className="hidden justify-center lg:flex lg:justify-end">
                         <div className="relative w-full max-w-xl overflow-hidden rounded-xl shadow-xl ring-4 ring-white/10 lg:-mr-11 lg:-mb-29 xl:-mr-11 xl:-mb-18">
-                            <Safari className="rounded-xl" />
+                            <Safari className="rounded-xl" imageSrc={imageGaleri.src} url="rotanera.vercel.app"/>
                         </div>
                     </div>
                 </div>

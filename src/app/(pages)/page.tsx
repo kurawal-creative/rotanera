@@ -1,6 +1,6 @@
 "use client";
 
-import AllInOneSection from "@/components/landing-page/all-in-one";
+import AllInOneSection from "@/components/landing-page/frequently-asked-questions";
 import CallToAction from "@/components/landing-page/call-to-action";
 import FeaturesSection from "@/components/landing-page/features";
 import HeroSection from "@/components/landing-page/hero";
