@@ -8,7 +8,7 @@ RUN bun install --frozen-lockfile
 
 COPY . .
 
-ENV DATABASE_URL="file:placeholder"
+ENV DIRECT_URL="file:placeholder"
 ENV PRISMA_CLIENT_ENGINE_TYPE="wasm"
 
 RUN bun run build
