@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { UserStatistics } from "@/types/statistics";
 import { useAuth } from "@/hooks/use-auth";
 import axios from "axios";
@@ -24,7 +24,7 @@ export function useStatistics(): UseStatisticsReturn {
     const [error, setError] = useState<string | null>(null);
     const { user, loading: authLoading } = useAuth();
 
-    const fetchStatistics = async () => {
+    const fetchStatistics = useCallback(async () => {
         if (!user) {
             setLoading(false);
             return;
@@ -41,7 +41,7 @@ export function useStatistics(): UseStatisticsReturn {
         } finally {
             setLoading(false);
         }
-    };
+    }, [user]);
 
     useEffect(() => {
         // Wait for auth to finish loading
@@ -50,7 +50,7 @@ export function useStatistics(): UseStatisticsReturn {
         }
 
         fetchStatistics();
-    }, [user, authLoading]);
+    }, [fetchStatistics, authLoading]);
 
     const refetch = () => {
         fetchStatistics();
