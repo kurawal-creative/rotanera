@@ -14,7 +14,7 @@ export default function ImprovePage() {
     const [improvedImage, setImprovedImage] = useState<string | null>(null);
     const [isProcessing, setIsProcessing] = useState(false);
     const [infoMessage, setInfoMessage] = useState<string | null>(null);
-    const defaultPrompt = "Improve this rattan furniture design to make it more beautiful, realistic, and high-quality";
+    const defaultPrompt = "Perbaiki desain furnitur rotan ini agar lebih indah, realistis, dan berkualitas tinggi";
 
     const handleImageUpload = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -31,12 +31,12 @@ export default function ImprovePage() {
 
     const handleImprove = useCallback(async () => {
         if (!uploadedImage) {
-            alert("Please upload an image first.");
+            alert("Silakan unggah gambar terlebih dahulu.");
             return;
         }
 
         setIsProcessing(true);
-        setInfoMessage("Improving your design…");
+        setInfoMessage("Memperbaiki desain Anda…");
         try {
             const response = await fetch(uploadedImage);
             const blob = await response.blob();
@@ -50,9 +50,9 @@ export default function ImprovePage() {
 
             if (geminiResponse.data.image) {
                 setImprovedImage(geminiResponse.data.image);
-                setInfoMessage("Design improved successfully.");
+                setInfoMessage("Desain berhasil diperbaiki.");
             } else {
-                setInfoMessage("Failed to improve image. Try again.");
+                setInfoMessage("Gagal memperbaiki gambar. Coba lagi.");
             }
         } catch (error) {
             console.error("Error improving image:", error);
@@ -71,8 +71,8 @@ export default function ImprovePage() {
 
                 <div className="relative p-6">
                     <div className="mb-6">
-                        <h1 className="text-2xl font-semibold text-neutral-900 dark:text-neutral-100">Improve Design</h1>
-                        <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">Upload a rattan design and let AI enhance it for you</p>
+                        <h1 className="text-2xl font-semibold text-neutral-900 dark:text-neutral-100">Perbaiki Desain</h1>
+                        <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">Unggah desain rotan dan biarkan AI meningkatkannya untuk Anda</p>
                     </div>
 
                     <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
@@ -83,8 +83,8 @@ export default function ImprovePage() {
                                         <Upload className="h-5 w-5 text-white" />
                                     </div>
                                     <div>
-                                        <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Upload Image</h2>
-                                        <p className="text-sm text-neutral-600 dark:text-neutral-400">Select a rattan furniture photo for improvement</p>
+                                        <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Unggah Gambar</h2>
+                                        <p className="text-sm text-neutral-600 dark:text-neutral-400">Pilih foto furnitur rotan untuk diperbaiki</p>
                                     </div>
                                 </div>
 
@@ -96,12 +96,12 @@ export default function ImprovePage() {
                                                 {uploadedImage ? (
                                                     <div className="text-center">
                                                         <ImageIcon className="mx-auto h-8 w-8 text-blue-600 dark:text-blue-400" />
-                                                        <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">Image ready</p>
+                                                        <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">Gambar siap</p>
                                                     </div>
                                                 ) : (
                                                     <div className="text-center">
                                                         <Upload className="mx-auto h-8 w-8 text-neutral-400 dark:text-neutral-500" />
-                                                        <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">Click to upload</p>
+                                                        <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">Klik untuk mengunggah</p>
                                                     </div>
                                                 )}
                                             </div>
@@ -118,8 +118,8 @@ export default function ImprovePage() {
                                                 <ImageIcon className="h-5 w-5 text-white" />
                                             </div>
                                             <div>
-                                                <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Uploaded Image Preview</h2>
-                                                <p className="text-sm text-neutral-600 dark:text-neutral-400">Click to view full size</p>
+                                                <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Pratinjau Gambar yang Diupload</h2>
+                                                <p className="text-sm text-neutral-600 dark:text-neutral-400">Klik untuk melihat ukuran penuh</p>
                                             </div>
                                         </div>
                                         <DialogTrigger asChild>
@@ -129,7 +129,7 @@ export default function ImprovePage() {
                                         </DialogTrigger>
                                     </div>
                                     <DialogContent className="max-w-4xl">
-                                        <DialogTitle>Uploaded Image Preview</DialogTitle>
+                                        <DialogTitle>Pratinjau Gambar yang Diupload</DialogTitle>
                                         <div className="relative h-[80vh] w-full">
                                             <Image src={uploadedImage} alt="Uploaded Preview" fill className="object-contain" />
                                         </div>
@@ -143,8 +143,8 @@ export default function ImprovePage() {
                                         <Zap className="h-5 w-5 text-white" />
                                     </div>
                                     <div>
-                                        <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Improve Settings</h2>
-                                        <p className="text-sm text-neutral-600 dark:text-neutral-400">AI will enhance your design automatically</p>
+                                        <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Pengaturan Perbaikan</h2>
+                                        <p className="text-sm text-neutral-600 dark:text-neutral-400">AI akan meningkatkan desain Anda secara otomatis</p>
                                     </div>
                                 </div>
 
@@ -153,12 +153,12 @@ export default function ImprovePage() {
                                         {isProcessing ? (
                                             <>
                                                 <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                                                Improving Design...
+                                                Memperbaiki Desain...
                                             </>
                                         ) : (
                                             <>
                                                 <Zap className="mr-2 h-5 w-5" />
-                                                Improve Design
+                                                Perbaiki Desain
                                             </>
                                         )}
                                     </Button>
@@ -175,8 +175,8 @@ export default function ImprovePage() {
                                         <ImageIcon className="h-5 w-5 text-white" />
                                     </div>
                                     <div>
-                                        <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Improved Result</h2>
-                                        <p className="text-sm text-neutral-600 dark:text-neutral-400">Your refreshed rattan design</p>
+                                        <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Hasil yang Diperbaiki</h2>
+                                        <p className="text-sm text-neutral-600 dark:text-neutral-400">Desain rotan Anda yang diperbarui</p>
                                     </div>
                                 </div>
 
@@ -188,7 +188,7 @@ export default function ImprovePage() {
                                             </div>
                                         </DialogTrigger>
                                         <DialogContent className="max-w-4xl">
-                                            <DialogTitle>Improved Image Preview</DialogTitle>
+                                            <DialogTitle>Pratinjau Gambar yang Diperbaiki</DialogTitle>
                                             <div className="relative h-[80vh] w-full">
                                                 <Image src={improvedImage} alt="Improved Preview" fill className="object-contain" />
                                             </div>
@@ -198,7 +198,7 @@ export default function ImprovePage() {
                                     <div className="flex h-64 w-full items-center justify-center rounded-lg border-2 border-dashed border-neutral-300 bg-neutral-50 dark:border-neutral-600 dark:bg-neutral-700">
                                         <div className="text-center">
                                             <ImageIcon className="mx-auto h-12 w-12 text-neutral-400 dark:text-neutral-500" />
-                                            <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">Improved image will appear here</p>
+                                            <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">Gambar yang diperbaiki akan muncul di sini</p>
                                         </div>
                                     </div>
                                 )}

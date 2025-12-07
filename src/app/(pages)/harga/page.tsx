@@ -38,9 +38,7 @@ export default function HargaPage() {
         <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: "easeOut" }} className="container mx-auto max-w-7xl px-4 py-16">
             {/* Header Section */}
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.4 }} className="mb-8 text-center">
-                <div className="border-purp mx-auto w-fit rounded-full border-2 px-2 py-1 lg:px-3 lg:py-1.5">
-                    <p className="text-purp lg:font-medium">Paket Kuota</p>
-                </div>
+                <div className="text-purp dark:text-purp-light border-purp dark:border-purp-light bg-purp/10 dark:bg-purp/20 mx-auto flex w-fit justify-center rounded-full border-2 px-2 py-1 text-sm transition-colors">Paket Kuota</div>
                 <div className="mx-auto mt-4 max-w-3xl flex-col text-center">
                     <h2 className="text-TextPrimary text-2xl font-semibold md:text-4xl lg:text-3xl">Bayar Sekali, Gunakan Sesuai Kebutuhan</h2>
                     <p className="text-TextSecondary mt-2 text-base lg:text-lg">Tanpa langganan bulanan. Kuota tidak hangus di akhir bulan. Gunakan kapan saja untuk generate desain rotan berkualitas tinggi dari kursi santai, lampu gantung, hingga set furniture ekspor.</p>

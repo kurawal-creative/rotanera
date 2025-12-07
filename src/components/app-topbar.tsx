@@ -59,7 +59,7 @@ export function Topbar({ className = "", breadcrumb = [], title }: TopbarProps) 
 
             {/* Right area for controls (search, avatar, actions) */}
             <div className="flex items-center gap-2">
-                <Notification />
+                {/* <Notification /> */}
             </div>
             <div className="pointer-events-none absolute inset-x-0 top-15 -z-10 h-24 bg-linear-to-b from-[#6D28D9]/5 via-[#6D28D9]/0 to-transparent" />
         </header>

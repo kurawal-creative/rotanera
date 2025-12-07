@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Topbar } from "@/components/app-topbar";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -219,42 +220,40 @@ export default function TemplateProjectPage() {
                     <DialogTitle>{title}</DialogTitle>
                     <DialogDescription>{description}</DialogDescription>
                 </DialogHeader>
-                <div className="space-y-4">
+                <div className="space-y-6">
                     <div>
-                        <Label htmlFor="name">Nama Template *</Label>
+                        <Label htmlFor="name" className="mb-2">
+                            Nama Template *
+                        </Label>
                         <Input id="name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="Kursi Rotan Modern" />
                     </div>
                     <div>
-                        <Label htmlFor="description">Deskripsi</Label>
+                        <Label htmlFor="description" className="mb-2">
+                            Deskripsi
+                        </Label>
                         <Textarea id="description" value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} placeholder="Deskripsi singkat tentang template..." rows={3} />
                     </div>
                     <div>
-                        <Label htmlFor="image">URL Gambar</Label>
+                        <Label htmlFor="image" className="mb-2">
+                            URL Gambar
+                        </Label>
                         <Input id="image" value={formData.image} onChange={(e) => setFormData({ ...formData, image: e.target.value })} placeholder="https://example.com/image.jpg" />
                     </div>
                     <div>
-                        <Label htmlFor="prompt">Prompt AI</Label>
+                        <Label htmlFor="prompt" className="mb-2">
+                            Prompt AI
+                        </Label>
                         <Textarea id="prompt" value={formData.prompt} onChange={(e) => setFormData({ ...formData, prompt: e.target.value })} placeholder="Prompt untuk generate gambar dengan AI..." rows={3} />
                     </div>
                     <div>
-                        <Label htmlFor="tags">Tags (pisahkan dengan koma)</Label>
+                        <Label htmlFor="tags" className="mb-2">
+                            Tags (pisahkan dengan koma)
+                        </Label>
                         <Input id="tags" value={formData.tags} onChange={(e) => setFormData({ ...formData, tags: e.target.value })} placeholder="modern, minimalis, rotan" />
                     </div>
                     <div className="flex items-center gap-2">
-                        <input
-                            type="checkbox"
-                            id="isPublic"
-                            checked={formData.isPublic}
-                            onChange={(e) => {
-                                e.stopPropagation();
-                                setFormData({ ...formData, isPublic: e.target.checked });
-                            }}
-                            onClick={(e) => e.stopPropagation()}
-                            className="h-4 w-4 rounded border-neutral-300 text-purple-600 focus:ring-purple-500"
-                        />
-                        <Label htmlFor="isPublic" className="cursor-pointer" onClick={(e) => e.preventDefault()}>
-                            Jadikan template publik
-                        </Label>
+                        <Checkbox id="isPublic" checked={formData.isPublic} onCheckedChange={(checked) => setFormData({ ...formData, isPublic: checked === true })} />
+                        <Label htmlFor="isPublic">Jadikan template publik</Label>
                     </div>
                 </div>
                 <DialogFooter>

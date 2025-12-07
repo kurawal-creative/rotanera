@@ -1,11 +1,13 @@
 import { Sidebar, SidebarHeader, SidebarFooter, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 
-import { ChevronsUpDown, CircleUser, GalleryVerticalEnd, LayoutGrid, LayoutTemplate, LogOut, Plus, Zap } from "lucide-react";
+import { ChevronsUpDown, CircleUser, GalleryVerticalEnd, LayoutGrid, LayoutTemplate, Loader2, LogOut, Plus, Zap } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { Avatar } from "./ui/avatar";
 import UserAvatar from "./user-avatar";
 import Link from "next/link";
 import { useAuth } from "@/hooks/use-auth";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 const items = [
     { title: "Project", url: "/project", icon: LayoutGrid },
@@ -16,10 +18,21 @@ const items = [
 
 export function AppSidebar() {
     const { user, loading, signOut } = useAuth();
+    const pathname = usePathname();
+    const [isLoggingOut, setIsLoggingOut] = useState(false);
 
     const username = user?.user_metadata?.full_name || user?.user_metadata.name || user?.email?.split("@")[0] || "User";
     const email = user?.email || "No email";
     const avatarUrl = user?.user_metadata?.avatar_url || user?.user_metadata?.picture;
+
+    const handleSignOut = async () => {
+        setIsLoggingOut(true);
+        try {
+            await signOut();
+        } finally {
+            setIsLoggingOut(false);
+        }
+    };
 
     if (loading) {
         return (
@@ -54,16 +67,19 @@ export function AppSidebar() {
 
                     <SidebarGroupContent>
                         <SidebarMenu className="space-y-1">
-                            {items.map((item) => (
-                                <SidebarMenuItem key={item.title}>
-                                    <SidebarMenuButton asChild className="data-[state=active]:bg-purp relative flex items-center gap-2 rounded-md border border-transparent px-2 py-2 transition-all hover:border-gray-200 hover:bg-gray-100/70 active:bg-gray-200 data-[state=active]:text-white dark:text-neutral-200 dark:hover:border-neutral-700 dark:hover:bg-neutral-800/70 dark:active:bg-neutral-800">
-                                        <Link href={item.url}>
-                                            <item.icon size={18} />
-                                            <span>{item.title}</span>
-                                        </Link>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
-                            ))}
+                            {items.map((item) => {
+                                const isActive = pathname === item.url || (item.url === "/project" && (pathname.startsWith("/project") || pathname.startsWith("/canvas")));
+                                return (
+                                    <SidebarMenuItem key={item.title}>
+                                        <SidebarMenuButton asChild className={`relative flex items-center gap-2 rounded-md border px-2 py-2 transition-all hover:border-gray-200 hover:bg-gray-100/70 active:bg-gray-200 dark:text-neutral-200 dark:hover:border-neutral-700 dark:hover:bg-neutral-800/70 dark:active:bg-neutral-800 ${isActive ? "bg-purp border-purp text-white" : "border-transparent"}`}>
+                                            <Link href={item.url}>
+                                                <item.icon size={18} />
+                                                <span>{item.title}</span>
+                                            </Link>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                );
+                            })}
                         </SidebarMenu>
                     </SidebarGroupContent>
                 </SidebarGroup>
@@ -92,18 +108,18 @@ export function AppSidebar() {
                         </button>
                     </DropdownMenuTrigger>
 
-                    <DropdownMenuContent side="right" align="end" className="ml-3 w-56">
+                    <DropdownMenuContent side="right" align="end" className="ml-3 w-56 dark:border-neutral-700 dark:bg-neutral-800">
                         <DropdownMenuLabel className="font-normal">
                             <div className="flex flex-col space-y-1">
-                                <p className="text-sm font-medium">{username}</p>
-                                <p className="text-xs text-gray-500">{email}</p>
+                                <p className="text-sm font-medium dark:text-neutral-200">{username}</p>
+                                <p className="text-xs text-gray-500 dark:text-gray-400">{email}</p>
                             </div>
                         </DropdownMenuLabel>
 
                         <DropdownMenuSeparator />
 
                         <DropdownMenuItem asChild>
-                            <Link href="/profile" className="cursor-pointer">
+                            <Link href="/profile" className="cursor-pointer dark:text-neutral-200 dark:hover:bg-neutral-700">
                                 <CircleUser className="mr-2 h-4 w-4" />
                                 <span>Profile</span>
                             </Link>
@@ -111,9 +127,9 @@ export function AppSidebar() {
 
                         <DropdownMenuSeparator />
 
-                        <DropdownMenuItem onClick={signOut} className="cursor-pointer">
-                            <LogOut className="mr-2 h-4 w-4 text-red-500" />
-                            <span className="text-red-500">Logout</span>
+                        <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer rounded-md text-red-500 hover:bg-red-50 dark:hover:bg-red-950/50">
+                            {isLoggingOut ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <LogOut className="mr-2 h-4 w-4" />}
+                            <span>Logout</span>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

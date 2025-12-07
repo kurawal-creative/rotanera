@@ -8,8 +8,9 @@ import { Input } from "@/components/ui/input";
 import { Topbar } from "@/components/app-topbar";
 import axios from "axios";
 import Image from "next/image";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
-import { Sparkles, Clock, Download, Loader2, Wand2, Image as ImageIcon } from "lucide-react";
+import { Sparkles, Clock, Download, Loader2, Wand2, Image as ImageIcon, X } from "lucide-react";
 
 export default function CanvasPage() {
     const { id } = useParams();
@@ -18,6 +19,8 @@ export default function CanvasPage() {
     const [generatedImages, setGeneratedImages] = useState<Array<{ url: string; createdAt: string }>>([]);
     const [isProcessing, setIsProcessing] = useState(false);
     const [prompt, setPrompt] = useState("ubah gambar ini menjadi desain rotan yang realistis dan indah");
+    const [previewImage, setPreviewImage] = useState<string | null>(null);
+    const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
     useEffect(() => {
         const fetchProjectImages = async () => {
@@ -81,6 +84,11 @@ export default function CanvasPage() {
         link.click();
     }, []);
 
+    const handlePreviewImage = useCallback((url: string) => {
+        setPreviewImage(url);
+        setIsPreviewOpen(true);
+    }, []);
+
     return (
         <>
             <main className="relative w-full">
@@ -111,7 +119,7 @@ export default function CanvasPage() {
                         {/* Left Column - Canvas and AI Panel */}
                         <div className="lg:col-span-2">
                             {/* Canvas */}
-                            <div className="overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm dark:border-neutral-700 dark:bg-neutral-800">
+                            <div className="w-full overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm dark:border-neutral-700 dark:bg-neutral-800">
                                 <PaintApp ref={paintAppRef} onReset={handleReset} width={800} height={600} />
                             </div>
 
@@ -169,7 +177,7 @@ export default function CanvasPage() {
 
                         {/* Right Column - Recent Generations */}
                         <div className="lg:col-span-1">
-                            <div className="sticky top-6 rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-800">
+                            <div className="sticky top-20 rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-800">
                                 <div className="mb-4 flex items-center justify-between">
                                     <div className="flex items-center gap-2">
                                         <ImageIcon className="h-5 w-5 text-purple-600 dark:text-purple-400" />
@@ -194,11 +202,19 @@ export default function CanvasPage() {
                                     <div className="max-h-[calc(100vh-16rem)] overflow-y-auto">
                                         <div className="grid grid-cols-2 gap-3">
                                             {generatedImages.map((img, index) => (
-                                                <div key={index} className="group relative aspect-video overflow-hidden rounded-lg border border-neutral-200 bg-linear-to-br from-purple-50 to-violet-100 transition-all hover:border-purple-300 hover:shadow-md dark:border-neutral-700 dark:from-purple-950/20 dark:to-violet-950/20 dark:hover:border-purple-600">
+                                                <div key={index} className="group relative aspect-video cursor-pointer overflow-hidden rounded-lg border border-neutral-200 bg-linear-to-br from-purple-50 to-violet-100 transition-all hover:border-purple-300 hover:shadow-md dark:border-neutral-700 dark:from-purple-950/20 dark:to-violet-950/20 dark:hover:border-purple-600" onClick={() => handlePreviewImage(img.url)}>
                                                     <Image src={img.url} alt={`Generated ${index + 1}`} fill className="object-cover transition-transform group-hover:scale-105" />
                                                     <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100">
                                                         <div className="absolute right-1 bottom-1 flex gap-1">
-                                                            <Button size="sm" variant="secondary" className="h-6 w-6 rounded-full p-0 shadow-lg" onClick={() => handleDownloadImage(img.url)}>
+                                                            <Button
+                                                                size="sm"
+                                                                variant="secondary"
+                                                                className="h-6 w-6 rounded-full p-0 shadow-lg"
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation();
+                                                                    handleDownloadImage(img.url);
+                                                                }}
+                                                            >
                                                                 <Download className="h-3 w-3" />
                                                             </Button>
                                                         </div>
@@ -215,6 +231,23 @@ export default function CanvasPage() {
                         </div>
                     </div>
                 </div>
+
+                {/* Image Preview Dialog */}
+                <Dialog open={isPreviewOpen} onOpenChange={setIsPreviewOpen}>
+                    <DialogContent className="max-w-4xl">
+                        <DialogHeader>
+                            <DialogTitle>Generated Image Preview</DialogTitle>
+                        </DialogHeader>
+                        {previewImage && (
+                            <div className="relative">
+                                <Image src={previewImage} alt="Preview" width={800} height={600} className="h-auto w-full rounded-lg" />
+                                <Button size="sm" variant="secondary" className="absolute top-2 right-2 h-8 w-8 rounded-full p-0" onClick={() => handleDownloadImage(previewImage)}>
+                                    <Download className="h-4 w-4" />
+                                </Button>
+                            </div>
+                        )}
+                    </DialogContent>
+                </Dialog>
             </main>
         </>
     );

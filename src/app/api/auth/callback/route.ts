@@ -28,8 +28,6 @@ export async function GET(request: NextRequest) {
                 return NextResponse.redirect(new URL(`/login?error=${encodeURIComponent("Could not authenticate. Please try again")}`, request.url));
             }
 
-            console.log(data);
-
             if (data.session) {
                 console.log("User authenticated:", data.user.email);
 
