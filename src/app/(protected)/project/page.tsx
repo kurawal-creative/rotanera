@@ -4,10 +4,8 @@ import { Topbar } from "@/components/app-topbar";
 import GridLayoutDashboard from "@/components/grid-layout-dashboard";
 import ListLayoutDashboard from "@/components/list-layout-dashboard";
 import SearchBar from "@/components/search-project";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import axios from "axios";
-import { ArrowRight, Grid2x2, History, List, Sparkles } from "lucide-react";
+import { Grid2x2, History, List, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useProjects } from "@/store/projectsStore";
 import Link from "next/link";
@@ -79,14 +77,14 @@ export default function DashboardPage() {
                     <div className="space-y-4 p-4">
                         <h1 className="text-2xl font-medium dark:text-neutral-100">Deskripsikan idemu dan buat itu menjadi nyata</h1>
 
-                        <div className="flex items-center">
+                        {/* <div className="flex items-center">
                             <div className="flex w-full items-center gap-3 rounded-xl border p-4 dark:border-neutral-700 dark:bg-neutral-800/50">
                                 <Input type="text" placeholder={placeholder} className="h-10 flex-1 rounded-2xl border bg-white px-3 text-sm transition focus:ring-2 focus:outline-none dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100 dark:placeholder:text-neutral-400" />
                                 <Button className="bg-purp hover:bg-purp-darker flex h-10 items-center gap-1 rounded-2xl px-3 transition-colors">
                                     Buat <ArrowRight />
                                 </Button>
                             </div>
-                        </div>
+                        </div> */}
                         <div className="mt-10">
                             <h1 className="flex items-center gap-2 text-xl text-neutral-800 dark:text-neutral-200">
                                 Terakhir di generate <History size={16} />

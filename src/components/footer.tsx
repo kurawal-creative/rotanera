@@ -1,13 +1,11 @@
-"use client";
-
 import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import type React from "react";
 import type { ComponentProps, ReactNode } from "react";
-import { FacebookIcon, GithubIcon, InstagramIcon } from "lucide-react";
+import { GithubIcon, InstagramIcon } from "lucide-react";
 import { Button } from "./ui/button";
 
-import logoText from "@/assets/svg/logo-text.svg";
+import logoText from "@/assets/image/logo.png";
 import Image from "next/image";
 
 type FooterLink = {
@@ -23,60 +21,39 @@ type FooterSection = {
 
 const footerLinks: FooterSection[] = [
     {
-        label: "Product",
+        label: "Menu Utama",
         links: [
-            { title: "Features", href: "#" },
-            { title: "Pricing", href: "#" },
-            { title: "Testimonials", href: "#" },
-            { title: "Integration", href: "#" },
-        ],
-    },
-    {
-        label: "Company",
-        links: [
-            { title: "FAQs", href: "#" },
-            { title: "About Us", href: "#" },
-            { title: "Privacy Policy", href: "#" },
-            { title: "Terms of Services", href: "#" },
-        ],
-    },
-    {
-        label: "Resources",
-        links: [
-            { title: "Blog", href: "#" },
-            { title: "Changelog", href: "#" },
-            { title: "Brand", href: "#" },
-            { title: "Help", href: "#" },
+            { title: "Tentang Kami", href: "/tentang-kami" },
+            { title: "Harga", href: "harga" },
         ],
     },
 ];
 
 const socialLinks = [
     {
-        icon: FacebookIcon,
-        link: "#",
-    },
-    {
         icon: GithubIcon,
-        link: "#",
+        link: "https://github.com/kurawal-creative/rotanera",
     },
     {
         icon: InstagramIcon,
-        link: "#",
+        link: "https://www.instagram.com/kurawal.creative/",
     },
 ];
 
 export function Footer() {
     return (
-        <footer className="md:rounded-t-6xl relative mx-auto flex w-full flex-col items-center justify-center rounded-t-4xl border-t bg-[radial-gradient(35%_128px_at_50%_0%,theme(backgroundColor.white/8%),transparent)] px-4 py-6 md:px-6">
+        <footer className="md:rounded-t-6xl relative mx-auto flex w-full flex-col items-center justify-center rounded-t-4xl border-t bg-[radial-gradient(35%_128px_at_50%_0%,theme(backgroundColor.white/8%),transparent)] px-4 py-8 md:px-6">
             <div className="bg-foreground/20 absolute top-0 right-1/2 left-1/2 h-px w-1/3 -translate-x-1/2 -translate-y-1/2 rounded-full blur" />
 
-            <div className="grid w-full max-w-7xl gap-8 xl:grid-cols-3 xl:gap-8">
-                <AnimatedContainer className="space-y-4">
-                    <Link href="/" className="relative -top-15">
-                        <Image src={logoText} alt="logo rotanera" className="h-38 w-38" />
+            {/* TOP PART */}
+            <div className="flex w-full max-w-7xl flex-col gap-8 md:flex-row md:items-start md:justify-between">
+                {/* Logo + Social */}
+                <AnimatedContainer className="flex flex-col items-center gap-4 md:items-start">
+                    <Link href="/">
+                        <Image src={logoText} alt="logo rotanera" className="h-auto w-24 md:w-32" priority draggable="false" />
                     </Link>
-                    <div className="relative -top-25 flex gap-2">
+
+                    <div className="flex gap-2">
                         {socialLinks.map((item, index) => (
                             <Button key={`social-${item.link}-${index}`} size="icon-sm" variant="outline">
                                 <a href={item.link} target="_blank">
@@ -87,15 +64,16 @@ export function Footer() {
                     </div>
                 </AnimatedContainer>
 
-                <div className="mt-10 grid grid-cols-2 gap-8 md:grid-cols-3 xl:col-span-2 xl:mt-0">
+                {/* Menu link */}
+                <div className="grid grid-cols-1 gap-6 md:gap-10">
                     {footerLinks.map((section, index) => (
                         <AnimatedContainer delay={0.1 + index * 0.1} key={section.label}>
-                            <div className="mb-10 md:mb-0">
+                            <div>
                                 <h3 className="text-sm font-medium">{section.label}</h3>
-                                <ul className="text-muted-foreground mt-4 space-y-2 text-sm">
+                                <ul className="text-muted-foreground mt-3 space-y-2 text-sm">
                                     {section.links.map((link) => (
                                         <li key={link.title}>
-                                            <a className="hover:text-foreground inline-flex items-center transition-all duration-300" href={link.href} key={`${section.label}-${link.title}`}>
+                                            <a className="hover:text-foreground inline-flex items-center transition-all duration-300" href={link.href}>
                                                 {link.icon && <link.icon className="me-1 size-4" />}
                                                 {link.title}
                                             </a>
@@ -106,6 +84,11 @@ export function Footer() {
                         </AnimatedContainer>
                     ))}
                 </div>
+            </div>
+
+            {/* COPYRIGHT */}
+            <div className="mt-8 w-full border-t pt-4">
+                <p className="text-center text-xs text-neutral-500">© {new Date().getFullYear()} Rotanera — All rights reserved.</p>
             </div>
         </footer>
     );

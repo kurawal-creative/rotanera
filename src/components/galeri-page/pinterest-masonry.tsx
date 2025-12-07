@@ -97,7 +97,7 @@ export default function PinterestMasonry() {
                         </div>
                     </div>
 
-                    {/* Tags - Always Visible */}
+                    {/* Tags - Always Visible
                     <div className="p-3">
                         <div className="flex flex-wrap gap-1.5">
                             {image.tags.slice(0, 3).map((tag) => (
@@ -107,7 +107,7 @@ export default function PinterestMasonry() {
                             ))}
                             {image.tags.length > 3 && <span className="rounded-full bg-neutral-100 px-2 py-0.5 text-xs text-neutral-500 dark:bg-neutral-700 dark:text-neutral-400">+{image.tags.length - 3}</span>}
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             ))}
         </div>

@@ -2,7 +2,12 @@
 import { cn } from "@/lib/utils";
 import { Marquee } from "@/components/ui/marquee";
 
-const images = ["https://picsum.photos/500/500?random=1", "https://picsum.photos/500/500?random=2", "https://picsum.photos/500/500?random=3", "https://picsum.photos/500/500?random=4", "https://picsum.photos/500/500?random=5", "https://picsum.photos/500/500?random=6"];
+import dummy1 from "@/assets/image/dummy1.png";
+import dummy2 from "@/assets/image/dummy2.png";
+import dummy3 from "@/assets/image/dummy3.png";
+import dummy4 from "@/assets/image/dummy4.png";
+
+const images = [dummy1, dummy2, dummy3, dummy4];
 
 const firstRow = images.slice(0, images.length / 2);
 const secondRow = images.slice(images.length / 2);
@@ -30,25 +35,25 @@ export function GaleriFeatures() {
                 {/* 4 column — atas & bawah scroll berbeda arah */}
                 <Marquee pauseOnHover vertical className="[--duration:20s]">
                     {firstRow.map((img, i) => (
-                        <ImageCard key={i} img={img} />
+                        <ImageCard key={i} img={img.src} />
                     ))}
                 </Marquee>
 
                 <Marquee reverse pauseOnHover vertical className="[--duration:20s]">
                     {secondRow.map((img, i) => (
-                        <ImageCard key={i} img={img} />
+                        <ImageCard key={i} img={img.src} />
                     ))}
                 </Marquee>
 
                 <Marquee reverse pauseOnHover vertical className="[--duration:20s]">
                     {thirdRow.map((img, i) => (
-                        <ImageCard key={i} img={img} />
+                        <ImageCard key={i} img={img.src} />
                     ))}
                 </Marquee>
 
                 <Marquee pauseOnHover vertical className="[--duration:20s]">
                     {fourthRow.map((img, i) => (
-                        <ImageCard key={i} img={img} />
+                        <ImageCard key={i} img={img.src} />
                     ))}
                 </Marquee>
             </div>

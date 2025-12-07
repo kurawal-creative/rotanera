@@ -2,7 +2,12 @@ import { cn } from "@/lib/utils";
 import { Marquee } from "@/components/ui/marquee";
 import Image from "next/image";
 
-const images = ["https://picsum.photos/500/500?random=1", "https://picsum.photos/500/500?random=2", "https://picsum.photos/500/500?random=3", "https://picsum.photos/500/500?random=4", "https://picsum.photos/500/500?random=5", "https://picsum.photos/500/500?random=6"];
+import dummy1 from "@/assets/image/dummy1.png";
+import dummy2 from "@/assets/image/dummy2.png";
+import dummy3 from "@/assets/image/dummy3.png";
+import dummy4 from "@/assets/image/dummy4.png";
+
+const images = [dummy1, dummy2, dummy3, dummy4];
 
 const ImageCard = ({ img }: { img: string }) => {
     return (
@@ -17,7 +22,7 @@ export function TemplateFeatures() {
         <div className="relative flex w-full flex-col items-center justify-center overflow-hidden py-5">
             <Marquee pauseOnHover className="[--duration:20s]">
                 {images.map((img, i) => (
-                    <ImageCard key={i} img={img} />
+                    <ImageCard key={i} img={img.src} />
                 ))}
             </Marquee>
 

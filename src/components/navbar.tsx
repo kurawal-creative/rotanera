@@ -16,7 +16,6 @@ import ThemeToggler from "./theme-toggler";
 
 const menuItems = [
     { name: "Tentang Kami", href: "/tentang-kami" },
-    { name: "Galeri Karya", href: "/galeri-karya" },
     { name: "Harga", href: "/harga" },
 ];
 
