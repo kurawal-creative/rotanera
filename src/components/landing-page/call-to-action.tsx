@@ -7,10 +7,10 @@ const CallToAction = () => {
     return (
         <section className="mx-auto w-full max-w-7xl px-4 py-20">
             <div className="bg-purp-darker relative overflow-hidden rounded-3xl px-10 py-14 text-white">
-                <div className="relative grid grid-cols-1 items-center gap-10 md:grid-cols-2">
+                <div className="relative grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
                     {/* Left */}
                     <div className="space-y-5">
-                        <h1 className="text-center text-2xl leading-tight font-extrabold md:text-start md:text-3xl">Desain Produk Rotan Lebih Cepat, Lebih Nyata, Lebih Menjual.</h1>
+                        <h1 className="text-center text-2xl leading-tight font-extrabold md:text-3xl lg:text-start">Desain Produk Rotan Lebih Cepat, Lebih Nyata, Lebih Menjual.</h1>
 
                         <div className="-top-3 left-1/2 hidden -translate-x-23 rotate-12 md:absolute md:-top-5">
                             <svg width="130" height="53" viewBox="0 0 130 53" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -29,9 +29,9 @@ const CallToAction = () => {
                             </svg>
                         </div>
 
-                        <p className="max-w-md text-center text-lg text-white/80 md:text-start">Temukan keindahan anyaman rotan handmade. Buat desain unik, dan promosikan langsung ke Instagram untuk UMKM Anda.</p>
+                        <p className="mx-auto max-w-md text-center text-lg text-white/80 lg:mx-0 lg:text-start">Temukan keindahan anyaman rotan handmade. Buat desain unik, dan promosikan langsung ke Instagram untuk UMKM Anda.</p>
 
-                        <div className="flex justify-center md:justify-start">
+                        <div className="flex justify-center lg:justify-start">
                             <Button className="group text-purp rounded-lg border border-white/30 bg-white font-semibold backdrop-blur-md transition-all duration-300 ease-out hover:bg-white/85 active:scale-[0.97] md:rounded-full">
                                 <Link href={"/login"} className="flex items-center gap-2">
                                     Cobain Sekarang
@@ -42,8 +42,8 @@ const CallToAction = () => {
                     </div>
 
                     {/* Right */}
-                    <div className="hidden justify-center md:flex md:justify-end">
-                        <div className="relative -mr-11 -mb-18 w-full max-w-xl overflow-hidden rounded-xl shadow-xl ring-4 ring-white/10">
+                    <div className="hidden justify-center lg:flex lg:justify-end">
+                        <div className="relative w-full max-w-xl overflow-hidden rounded-xl shadow-xl ring-4 ring-white/10 lg:-mr-11 lg:-mb-29 xl:-mr-11 xl:-mb-18">
                             <Safari className="rounded-xl" />
                         </div>
                     </div>
