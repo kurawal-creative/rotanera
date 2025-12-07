@@ -5,10 +5,13 @@ import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Button } from "./ui/button";
+import Image from "next/image";
+
+import logoText from "@/assets/svg/logo-text.svg";
 
 const menuItems = [
     { name: "Tentang Kami", href: "/tentang-kami" },
-    { name: "Galeri", href: "/galeri" },
+    { name: "Galeri Karya", href: "/galeri-karya" },
     { name: "Harga", href: "/harga" },
 ];
 
@@ -30,8 +33,8 @@ const Navbar = () => {
         <motion.nav initial={{ y: -22, opacity: 0, scale: 0.96 }} animate={{ y: 0, opacity: 1, scale: 1 }} transition={{ duration: 0.55, ease: [0.22, 0.61, 0.36, 1] }} className={`sticky top-0 z-999 transition-all duration-300 ${scrolled ? "bg-white/70 backdrop-blur-md" : "bg-transparent"}`}>
             <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
                 {/* Logo */}
-                <Link href="/" className="text-purp pb-1.5 text-3xl font-normal">
-                    rotanera
+                <Link href="/" className="text-purp flex items-center gap-2 pb-1.5 text-3xl font-normal">
+                    <Image src={logoText} alt="logo rotanera" className="h-38 w-38" />
                 </Link>
 
                 {/* Desktop Menu */}

@@ -4,65 +4,53 @@ import { Safari } from "../ui/safari";
 import Link from "next/link";
 
 const CallToAction = () => {
-  return (
-    <section className="mx-auto w-full max-w-7xl px-4 py-20">
-      <div className="bg-purp-darker relative overflow-hidden rounded-3xl px-10 py-14 text-white">
-        <div className="relative grid grid-cols-1 items-center gap-10 md:grid-cols-2">
-          {/* Left */}
-          <div className="space-y-5">
-            <h1 className="text-2xl leading-tight font-extrabold md:text-3xl">
-              Desain Produk Rotan Lebih Cepat, Lebih Nyata, Lebih Menjual.
-            </h1>
+    return (
+        <section className="mx-auto w-full max-w-7xl px-4 py-20">
+            <div className="bg-purp-darker relative overflow-hidden rounded-3xl px-10 py-14 text-white">
+                <div className="relative grid grid-cols-1 items-center gap-10 md:grid-cols-2">
+                    {/* Left */}
+                    <div className="space-y-5">
+                        <h1 className="text-center text-2xl leading-tight font-extrabold md:text-start md:text-3xl">Desain Produk Rotan Lebih Cepat, Lebih Nyata, Lebih Menjual.</h1>
 
-            <div className="absolute -top-3 left-1/2 -translate-x-23 rotate-12 md:-top-5">
-              <svg
-                width="130"
-                height="53"
-                viewBox="0 0 130 53"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M24.0948 41.6728C24.4487 40.5391 24.7479 39.5607 24.9033 39.0428C25.8413 35.8891 29.1217 28.3386 29.6137 22.319C29.9907 17.7265 28.7505 14.0089 24.5177 12.9672C20.6706 12.0205 16.786 14.3599 13.3445 18.5754C5.93792 27.648 0.321149 45.3042 0.00175015 51.0764C-0.0327794 51.7065 0.447755 52.2446 1.07792 52.2791C1.70521 52.3137 2.24327 51.8331 2.2778 51.203C2.58569 45.6638 8.00111 28.7271 15.1113 20.017C17.891 16.613 20.8662 14.4174 23.9739 15.1829C27.0412 15.9367 27.6139 18.8027 27.3406 22.1319C26.8629 27.9904 23.6315 35.3222 22.7164 38.3925C22.1438 40.3175 19.7527 47.5975 19.698 48.2708C19.6289 49.1139 20.2303 49.3959 20.4346 49.4736C20.5929 49.534 21.4014 49.7843 21.905 48.8779C29.0929 35.9581 49.0654 21.1076 70.3414 15.1886C91.4303 9.32146 113.866 12.2709 126.262 35.0402C126.564 35.5927 127.258 35.797 127.81 35.4977C128.363 35.1956 128.567 34.5021 128.265 33.9497C115.276 10.0926 91.8245 6.84392 69.7313 12.9902C51.1112 18.1696 33.5041 30.0536 24.0948 41.6728Z"
-                  fill="white"
-                />
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M126.459 33.4C123.97 32.3813 121.524 31.2879 118.955 30.4621C112.109 28.2608 104.53 27.4234 97.4257 28.6895C96.8042 28.8017 96.3926 29.3945 96.502 30.0132C96.6142 30.6347 97.207 31.0462 97.8256 30.9368C104.568 29.7312 111.761 30.5455 118.256 32.6345C121.196 33.5812 123.976 34.8847 126.845 36.0155C126.989 36.0702 128.22 36.5997 128.511 36.64C129.187 36.7378 129.53 36.3465 129.665 36.1451C129.78 35.9782 129.878 35.7508 129.886 35.4458C129.892 35.1955 129.791 34.7178 129.521 34.1078C128.661 32.1511 125.999 27.8752 125.636 27.1271C121.478 18.5522 119.05 9.87667 116.264 0.806902C116.077 0.205512 115.439 -0.134066 114.837 0.0500921C114.236 0.23425 113.899 0.873103 114.083 1.47449C116.903 10.6594 119.375 19.4413 123.585 28.1198C123.832 28.6348 125.36 31.4116 126.459 33.4Z"
-                  fill="white"
-                />
-              </svg>
+                        <div className="-top-3 left-1/2 hidden -translate-x-23 rotate-12 md:absolute md:-top-5">
+                            <svg width="130" height="53" viewBox="0 0 130 53" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    fillRule="evenodd"
+                                    clipRule="evenodd"
+                                    d="M24.0948 41.6728C24.4487 40.5391 24.7479 39.5607 24.9033 39.0428C25.8413 35.8891 29.1217 28.3386 29.6137 22.319C29.9907 17.7265 28.7505 14.0089 24.5177 12.9672C20.6706 12.0205 16.786 14.3599 13.3445 18.5754C5.93792 27.648 0.321149 45.3042 0.00175015 51.0764C-0.0327794 51.7065 0.447755 52.2446 1.07792 52.2791C1.70521 52.3137 2.24327 51.8331 2.2778 51.203C2.58569 45.6638 8.00111 28.7271 15.1113 20.017C17.891 16.613 20.8662 14.4174 23.9739 15.1829C27.0412 15.9367 27.6139 18.8027 27.3406 22.1319C26.8629 27.9904 23.6315 35.3222 22.7164 38.3925C22.1438 40.3175 19.7527 47.5975 19.698 48.2708C19.6289 49.1139 20.2303 49.3959 20.4346 49.4736C20.5929 49.534 21.4014 49.7843 21.905 48.8779C29.0929 35.9581 49.0654 21.1076 70.3414 15.1886C91.4303 9.32146 113.866 12.2709 126.262 35.0402C126.564 35.5927 127.258 35.797 127.81 35.4977C128.363 35.1956 128.567 34.5021 128.265 33.9497C115.276 10.0926 91.8245 6.84392 69.7313 12.9902C51.1112 18.1696 33.5041 30.0536 24.0948 41.6728Z"
+                                    fill="white"
+                                />
+                                <path
+                                    fillRule="evenodd"
+                                    clipRule="evenodd"
+                                    d="M126.459 33.4C123.97 32.3813 121.524 31.2879 118.955 30.4621C112.109 28.2608 104.53 27.4234 97.4257 28.6895C96.8042 28.8017 96.3926 29.3945 96.502 30.0132C96.6142 30.6347 97.207 31.0462 97.8256 30.9368C104.568 29.7312 111.761 30.5455 118.256 32.6345C121.196 33.5812 123.976 34.8847 126.845 36.0155C126.989 36.0702 128.22 36.5997 128.511 36.64C129.187 36.7378 129.53 36.3465 129.665 36.1451C129.78 35.9782 129.878 35.7508 129.886 35.4458C129.892 35.1955 129.791 34.7178 129.521 34.1078C128.661 32.1511 125.999 27.8752 125.636 27.1271C121.478 18.5522 119.05 9.87667 116.264 0.806902C116.077 0.205512 115.439 -0.134066 114.837 0.0500921C114.236 0.23425 113.899 0.873103 114.083 1.47449C116.903 10.6594 119.375 19.4413 123.585 28.1198C123.832 28.6348 125.36 31.4116 126.459 33.4Z"
+                                    fill="white"
+                                />
+                            </svg>
+                        </div>
+
+                        <p className="max-w-md text-center text-lg text-white/80 md:text-start">Temukan keindahan anyaman rotan handmade. Buat desain unik, dan promosikan langsung ke Instagram untuk UMKM Anda.</p>
+
+                        <div className="flex justify-center md:justify-start">
+                            <Button className="group text-purp rounded-lg border border-white/30 bg-white font-semibold backdrop-blur-md transition-all duration-300 ease-out hover:bg-white/85 active:scale-[0.97] md:rounded-full">
+                                <Link href={"/login"} className="flex items-center gap-2">
+                                    Cobain Sekarang
+                                    <ArrowRight size={16} className="transition-transform duration-300 ease-out group-hover:translate-x-1" />
+                                </Link>
+                            </Button>
+                        </div>
+                    </div>
+
+                    {/* Right */}
+                    <div className="hidden justify-center md:flex md:justify-end">
+                        <div className="relative -mr-11 -mb-18 w-full max-w-xl overflow-hidden rounded-xl shadow-xl ring-4 ring-white/10">
+                            <Safari className="rounded-xl" />
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <p className="max-w-md text-lg text-white/80">
-              Temukan keindahan anyaman rotan handmade. Buat desain unik, dan
-              promosikan langsung ke Instagram untuk UMKM Anda.
-            </p>
-
-            <Button className="group text-purp rounded-full border border-white/30 bg-white font-semibold backdrop-blur-md transition-all duration-300 ease-out hover:bg-white/85 active:scale-[0.97]">
-              <Link href={"/login"} className="flex items-center gap-2">
-                Cobain Sekarang
-                <ArrowRight
-                  size={16}
-                  className="transition-transform duration-300 ease-out group-hover:translate-x-1"
-                />
-              </Link>
-            </Button>
-          </div>
-
-          {/* Right */}
-          <div className="flex justify-center md:justify-end">
-            <div className="relative -mr-11 -mb-18 w-full max-w-xl overflow-hidden rounded-xl shadow-xl ring-4 ring-white/10">
-              <Safari className="rounded-xl" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 };
 
 export default CallToAction;
