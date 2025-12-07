@@ -68,8 +68,8 @@ export async function POST(request: Request) {
         // Create or update user in database
         await prisma.user.upsert({
             where: { email },
-            update: { name },
-            create: { id: data.user.id, name, email },
+            update: { name, avatar: data.user.user_metadata?.avatar_url || null },
+            create: { id: data.user.id, name, email, avatar: data.user.user_metadata?.avatar_url || null },
         });
 
         // Check if email confirmation is required

@@ -36,11 +36,12 @@ export async function GET(request: NextRequest) {
                 if (data.user?.email) {
                     await prisma.user.upsert({
                         where: { email: data.user.email },
-                        update: { name: data.user.user_metadata?.name || "" },
+                        update: { name: data.user.user_metadata?.name || "", avatar: data.user.user_metadata?.avatar_url || null },
                         create: {
                             id: data.user.id,
                             email: data.user.email,
                             name: data.user.user_metadata?.name || "",
+                            avatar: data.user.user_metadata?.avatar_url || null,
                         },
                     });
                 }

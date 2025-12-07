@@ -14,6 +14,7 @@ export async function GET() {
                             select: {
                                 name: true,
                                 email: true,
+                                avatar: true,
                             },
                         },
                     },
@@ -48,6 +49,7 @@ export async function GET() {
             downloads: img.downloads,
             author: {
                 name: img.project.user.name || img.project.user.email.split("@")[0],
+                avatar: img.project.user.avatar,
             },
             isLiked: user ? img.favorites.length > 0 : false,
             width: 400,
